@@ -1,14 +1,17 @@
-<script setup>
+<template>
+    <lay-out/>
+</template>
+
+<script lang="ts">
+import LayOut from "@/components/LayOut.vue";
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
-import LayOut from './components/LayOut.vue'
+export default {
+    name: 'App',
+    components: {LayOut},
+    // 组件名
+}
 </script>
-
-<template>
-
-  <LayOut/>
-
-</template>
 
 <style scoped>
 
