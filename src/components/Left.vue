@@ -1,7 +1,6 @@
 <template>
   <el-row class="tac">
     <el-col>
-      <!--      <h4 class="mb-2">Dashboard</h4>-->
       <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
@@ -25,35 +24,50 @@
           <el-icon>
             <House/>
           </el-icon>
-          <span>Home</span>
+
+          <RouterLink to="/home">
+            <span>Home</span>
+          </RouterLink>
+
         </el-menu-item>
 
-        <el-menu-item index="2">
-          <el-icon>
-            <Document/>
-          </el-icon>
-          <span>Guide</span>
-        </el-menu-item>
+
+        <RouterLink to="/guide">
+          <el-menu-item index="2">
+            <el-icon>
+              <Document/>
+            </el-icon>
+            <span>Guide</span>
+          </el-menu-item>
+        </RouterLink>
+
 
         <el-menu-item index="3">
           <el-icon>
             <Download/>
           </el-icon>
-          <span>DownLoad</span>
+          <RouterLink to="/download">
+            DownLoad
+          </RouterLink>
+
         </el-menu-item>
 
         <el-menu-item index="4">
           <el-icon>
             <Message/>
           </el-icon>
-          <span>Contact</span>
+          <RouterLink to="/contact">
+            Contact
+          </RouterLink>
         </el-menu-item>
 
         <el-menu-item index="5">
           <el-icon>
             <Link/>
           </el-icon>
-          <span>About</span>
+          <RouterLink to="/about">
+            About
+          </RouterLink>
         </el-menu-item>
 
 
