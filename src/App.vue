@@ -5,7 +5,6 @@
 <script lang="ts">
 import LayOut from "@/components/LayOut.vue";
 // import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
 export default {
     name: 'App',
     components: {LayOut},
