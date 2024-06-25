@@ -4,7 +4,7 @@
       <Top/>
       <el-container class="main-container">
         <Left/>
-        <ChartArea/>
+        <Right/>
       </el-container>
       <Bottom/>
     </el-container>
@@ -16,11 +16,11 @@
 import {defineComponent} from "vue";
 import Top from "@/components/Top.vue";
 import Left from "@/components/Left.vue";
-import ChartArea from "@/components/ChartArea.vue";
+import Right from "@/components/Right.vue";
 import Bottom from "@/components/Bottom.vue";
 
 export default defineComponent({
-  components: {Top, Left, ChartArea, Bottom}
+  components: {Top, Right, Bottom, Left}
 })
 </script>
 
