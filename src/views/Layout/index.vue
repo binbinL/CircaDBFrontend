@@ -15,7 +15,6 @@ import {defineComponent} from "vue";
 import Top from "@/views/Layout/components/Top.vue";
 import Bottom from "@/views/Layout/components/Bottom.vue";
 
-
 export default defineComponent({
   components: {Top, Bottom}
 })
@@ -39,14 +38,5 @@ export default defineComponent({
   display: flex;
   background-color: #e9ecef;
 }
-
-.main {
-  flex: 8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-}
-
 
 </style>
