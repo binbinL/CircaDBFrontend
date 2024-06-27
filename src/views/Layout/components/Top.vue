@@ -19,52 +19,50 @@ const handleSelect = (key: string, keyPath: string[]) => {
         active-text-color="#ffd04b"
         @select="handleSelect"
     >
-      <el-menu-item index="1">
-        <el-icon>
-          <House/>
-        </el-icon>
-        <RouterLink to="/home">
-          <span>Home</span>
-        </RouterLink>
-      </el-menu-item>
+      <RouterLink to="/home">
+        <el-menu-item index="1">
+          <el-icon>
+            <House/>
+          </el-icon>
+          Home
+        </el-menu-item>
+      </RouterLink>
 
+      <RouterLink to="/guide">
+        <el-menu-item index="2">
+          <el-icon>
+            <Document/>
+          </el-icon>
+          Guide
+        </el-menu-item>
+      </RouterLink>
 
-      <el-menu-item index="2">
-        <el-icon>
-          <Document/>
-        </el-icon>
-        <RouterLink to="/guide">
-          <span>Guide</span>
-        </RouterLink>
-      </el-menu-item>
-
-
-      <el-menu-item index="3">
-        <el-icon>
-          <Download/>
-        </el-icon>
-        <RouterLink to="/download">
+      <RouterLink to="/download">
+        <el-menu-item index="3">
+          <el-icon>
+            <Download/>
+          </el-icon>
           DownLoad
-        </RouterLink>
-      </el-menu-item>
+        </el-menu-item>
+      </RouterLink>
 
-      <el-menu-item index="4">
-        <el-icon>
-          <Message/>
-        </el-icon>
-        <RouterLink to="/contact">
+      <RouterLink to="/contact">
+        <el-menu-item index="4">
+          <el-icon>
+            <Message/>
+          </el-icon>
           Contact
-        </RouterLink>
-      </el-menu-item>
+        </el-menu-item>
+      </RouterLink>
 
-      <el-menu-item index="5">
-        <el-icon>
-          <Link/>
-        </el-icon>
-        <RouterLink to="/about">
+      <RouterLink to="/about">
+        <el-menu-item index="5">
+          <el-icon>
+            <Link/>
+          </el-icon>
           About
-        </RouterLink>
-      </el-menu-item>
+        </el-menu-item>
+      </RouterLink>
     </el-menu>
   </div>
 

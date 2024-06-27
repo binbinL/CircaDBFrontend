@@ -1,94 +1,56 @@
 <template>
-  <el-row class="tac">
-    <el-col>
-      <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-      >
-        <!--        <el-sub-menu index="1">-->
-        <!--          <template #title>-->
-        <!--            <el-icon>-->
-        <!--              <House/>-->
-        <!--            </el-icon>-->
-        <!--            <span>Home</span>-->
-        <!--          </template>-->
-        <!--          <el-menu-item index="1-1">item one</el-menu-item>-->
-        <!--          <el-menu-item index="1-2">item two</el-menu-item>-->
-        <!--          <el-menu-item index="1-3">item three</el-menu-item>-->
-        <!--          <el-menu-item index="1-4">item four</el-menu-item>-->
-        <!--        </el-sub-menu>-->
+  <div class="container">
 
-        <el-menu-item index="1">
-          <el-icon>
-            <House/>
-          </el-icon>
+    <div class="vertical-radio-group">
+      <el-select v-model="species" placeholder="please select Species">
+        <el-option label="Human" value="Human"/>
+        <el-option label="Mus" value="Mus"/>
+      </el-select>
+    </div>
 
-          <RouterLink to="/home">
-            <span>Home</span>
-          </RouterLink>
+    <div style="margin-top: 20px" class="vertical-radio-group">
+      <el-radio-group v-model="omics">
+        <el-radio-button label="Transcriptome" value="Transcriptome"/>
+        <el-radio-button label="Metabolome" value="Metabolome"/>
+        <el-radio-button label="Acetylome" value="Acetylome"/>
+        <el-radio-button label="Proteome" value="Proteome"/>
+      </el-radio-group>
+    </div>
 
-        </el-menu-item>
+    <div style="margin-top: 20px" class="vertical-radio-group">
+      <el-select v-model="tissue" placeholder="please select Tissue">
+        <el-option label="Liver" value="Human"/>
+        <el-option label="Brain" value="Mus"/>
+      </el-select>
+    </div>
 
 
-        <RouterLink to="/guide">
-          <el-menu-item index="2">
-            <el-icon>
-              <Document/>
-            </el-icon>
-            <span>Guide</span>
-          </el-menu-item>
-        </RouterLink>
-
-
-        <el-menu-item index="3">
-          <el-icon>
-            <Download/>
-          </el-icon>
-          <RouterLink to="/download">
-            DownLoad
-          </RouterLink>
-
-        </el-menu-item>
-
-        <el-menu-item index="4">
-          <el-icon>
-            <Message/>
-          </el-icon>
-          <RouterLink to="/contact">
-            Contact
-          </RouterLink>
-        </el-menu-item>
-
-        <el-menu-item index="5">
-          <el-icon>
-            <Link/>
-          </el-icon>
-          <RouterLink to="/about">
-            About
-          </RouterLink>
-        </el-menu-item>
-
-
-      </el-menu>
-    </el-col>
-  </el-row>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  House,
-  Document,
-  Message,
-  Download,
-  Link,
-} from '@element-plus/icons-vue'
+import {ref} from 'vue'
 
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+
+const omics = ref('Transcriptome')
+const species = ref('Mus')
+const tissue = ref('Human')
+
 </script>
+
+<style>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: Add margin between radio buttons */
+.el-radio-button {
+  margin-bottom: 5px;
+}
+</style>
