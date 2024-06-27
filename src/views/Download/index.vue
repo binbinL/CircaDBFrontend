@@ -1,28 +1,17 @@
 <template>
-  <div id="app">
-    <el-container class="full-height">
-      <Top/>
-      <el-container class="main-container">
-        <Left/>
-        <el-main class="main">
-          <Download/>
-        </el-main>
-
-      </el-container>
-      <Bottom/>
-    </el-container>
-  </div>
+  <el-main class="main">
+    <Download/>
+  </el-main>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import Top from "@/components/Top.vue";
-import Left from "@/components/Left.vue";
-import Bottom from "@/components/Bottom.vue";
-import Download from "@/components/Download.vue";
+
+import Download from "@/views/Download/components/Download.vue";
+
 
 export default defineComponent({
-  components: { Top, Download, Bottom, Left}
+  components: {Download}
 })
 </script>
 

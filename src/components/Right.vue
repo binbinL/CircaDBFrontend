@@ -1,6 +1,6 @@
 <script setup>
 
-import Msg from "@/components/Msg.vue";
+import Msg from "@/views/Home/components/Msg.vue";
 </script>
 
 <template>

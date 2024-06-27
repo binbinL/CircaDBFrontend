@@ -1,27 +1,15 @@
 <template>
-  <div id="app">
-    <el-container class="full-height">
-      <Top/>
-      <el-container class="main-container">
-        <Left/>
-        <el-main class="main">
-          <About/>
-        </el-main>
-      </el-container>
-      <Bottom/>
-    </el-container>
-  </div>
+  <el-main class="main">
+    <About/>
+  </el-main>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import Top from "@/components/Top.vue";
-import Left from "@/components/Left.vue";
-import Bottom from "@/components/Bottom.vue";
-import About from "@/components/About.vue";1
+import About from "@/views/About/components/About.vue";
 
 export default defineComponent({
-  components: {Top, About, Bottom, Left}
+  components: {About}
 })
 </script>
 

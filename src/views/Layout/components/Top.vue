@@ -9,11 +9,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </script>
 
 <template>
-  <!--  <div class="navigation">-->
-  <!-- -->
-  <!--  </div>-->
-
-  <el-header class="header">
+  <div class="nav-header">
     <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
@@ -27,22 +23,20 @@ const handleSelect = (key: string, keyPath: string[]) => {
         <el-icon>
           <House/>
         </el-icon>
-
         <RouterLink to="/home">
           <span>Home</span>
         </RouterLink>
-
       </el-menu-item>
 
 
-      <RouterLink to="/guide">
-        <el-menu-item index="2">
-          <el-icon>
-            <Document/>
-          </el-icon>
+      <el-menu-item index="2">
+        <el-icon>
+          <Document/>
+        </el-icon>
+        <RouterLink to="/guide">
           <span>Guide</span>
-        </el-menu-item>
-      </RouterLink>
+        </RouterLink>
+      </el-menu-item>
 
 
       <el-menu-item index="3">
@@ -72,16 +66,21 @@ const handleSelect = (key: string, keyPath: string[]) => {
         </RouterLink>
       </el-menu-item>
     </el-menu>
+  </div>
+
+  <el-header class="header">
+
   </el-header>
 </template>
 
 
 <style scoped>
+.nav-header {
+  flex: 1
+}
+
 .header {
-  flex: 1;
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
-  background-color: #f4f4f4;
+  flex: 2;
+//display: flex; //justify-content: center; //align-items: center; background-color: #f4f4f4;
 }
 </style>

@@ -3,8 +3,7 @@
     <el-container class="full-height">
       <Top/>
       <el-container class="main-container">
-        <Left/>
-        <Right/>
+        <RouterView/>
       </el-container>
       <Bottom/>
     </el-container>
@@ -12,15 +11,13 @@
 </template>
 
 <script>
-
 import {defineComponent} from "vue";
-import Top from "@/components/Top.vue";
-import Left from "@/components/Left.vue";
-import Right from "@/components/Right.vue";
-import Bottom from "@/components/Bottom.vue";
+import Top from "@/views/Layout/components/Top.vue";
+import Bottom from "@/views/Layout/components/Bottom.vue";
+
 
 export default defineComponent({
-  components: {Top, Right, Bottom, Left}
+  components: {Top, Bottom}
 })
 </script>
 
@@ -41,6 +38,14 @@ export default defineComponent({
   flex: 10;
   display: flex;
   background-color: #e9ecef;
+}
+
+.main {
+  flex: 8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 

@@ -1,28 +1,15 @@
 <template>
-  <div id="app">
-    <el-container class="full-height">
-      <Top/>
-      <el-container class="main-container">
-        <Left/>
-        <el-main class="main">
-          <Guide/>
-        </el-main>
-
-      </el-container>
-      <Bottom/>
-    </el-container>
-  </div>
+  <el-main class="main">
+    <Contact/>
+  </el-main>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import Top from "@/components/Top.vue";
-import Left from "@/components/Left.vue";
-import Bottom from "@/components/Bottom.vue";
-import Guide from "@/components/Guide.vue";
+import Contact from "@/views/Concat/components/Contact.vue";
 
 export default defineComponent({
-  components: { Top, Guide, Bottom, Left}
+  components: {Contact}
 })
 </script>
 
@@ -52,6 +39,5 @@ export default defineComponent({
   align-items: center;
   background-color: #ffffff;
 }
-
 
 </style>
