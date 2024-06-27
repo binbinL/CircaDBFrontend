@@ -56,6 +56,7 @@ const data = reactive({
 })
 
 const tissues = ref({})
+const emits = defineEmits(['getTissues'])
 
 watch(() => data.species, (newValue, oldValue) => {
   console.log(newValue, oldValue)
@@ -66,6 +67,7 @@ watch(() => data.omics, (newValue, oldValue) => {
       .then(response => {
         console.log(response.data);
         tissues.value = response.data
+        emits('getTissues', response.data)
       })
       .catch(error => {
         console.error(error);

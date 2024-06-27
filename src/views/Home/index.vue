@@ -1,18 +1,23 @@
 <template>
-  <Left/>
+  <Left @getTissues="emitsTissues"/>
   <el-main class="main">
-    <Msg/>
+    <RingChart/>
   </el-main>
 </template>
 
-<script>
+<script setup>
 import {defineComponent} from "vue";
 import Left from "@/views/Home/components/Left.vue";
 import Msg from "@/views/Home/components/Msg.vue";
+import RingChart from "@/views/Home/components/RingChart.vue";
 
-export default defineComponent({
-  components: {Msg, Left}
-})
+// defineComponent({
+//   components: {Msg, Left, RingChart}
+// })
+
+const emitsTissues = (data) => {
+  console.log(data)
+}
 </script>
 
 <style scoped>
