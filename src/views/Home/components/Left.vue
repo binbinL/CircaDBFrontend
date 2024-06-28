@@ -26,8 +26,7 @@
             :value="key"
         />
 
-        <!--                <el-option label="Liver" value="Liver"/>-->
-        <!--                <el-option label="Brain" value="Brain"/>-->
+
       </el-select>
     </div>
 
@@ -51,30 +50,39 @@ import axios from 'axios'
 
 const data = reactive({
   species: 'Mus',
-  omics: 'Transcriptome',
-  tissue: 'Liver'
+  omics: ' ',
+  tissue: ' '
 })
 
 const tissues = ref({})
-const emits = defineEmits(['getTissues'])
+const emits = defineEmits(['getOmics', 'getTissue'])
 
 watch(() => data.species, (newValue, oldValue) => {
   console.log(newValue, oldValue)
 })
 watch(() => data.omics, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
+  console.log('watch-omics', newValue, oldValue)
   axios.get(`/api/${data.omics}`)
       .then(response => {
-        console.log(response.data);
-        tissues.value = response.data
-        emits('getTissues', response.data)
+        console.log('left', response.data);
+        tissues.value = response.data.data
+        // data.tissue = Object.keys(tissues.value)[0]
+        emits('getOmics', response.data.data)
       })
       .catch(error => {
         console.error(error);
       })
 })
 watch(() => data.tissue, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
+  console.log('watch-tissue', newValue, oldValue)
+  axios.get(`/api/${data.omics}/${data.tissue}`)
+      .then(response => {
+        console.log('left', response.data.data);
+        emits('getTissue', response.data.data)
+      })
+      .catch(error => {
+        console.error(error);
+      })
 })
 
 
