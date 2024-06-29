@@ -30,32 +30,45 @@
       </el-select>
     </div>
 
-    <!--    <div style="margin-top: 20px" class="vertical-radio-group">-->
-    <!--      <el-autocomplete-->
-    <!--          v-model="form.name"-->
-    <!--          :fetch-suggestions="querySearch"-->
-    <!--          clearable-->
-    <!--          placeholder="Please Input"-->
-    <!--          @select="handleSelect"-->
-    <!--      />-->
-    <!--    </div>-->
+    <div style="margin-top: 20px" class="vertical-radio-group">
+      <el-autocomplete
+          v-model="data.gene"
+          :fetch-suggestions="querySearch"
+          clearable
+          placeholder="Please Input Gene"
+          @select="handleSelect"
+      />
+    </div>
 
 
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {watch, reactive, ref} from 'vue'
 import axios from 'axios'
 
 const data = reactive({
   species: 'Mus',
-  omics: ' ',
-  tissue: ' '
+  omics: '',
+  tissue: '',
+  gene: ''
 })
 
 const tissues = ref({})
 const emits = defineEmits(['getOmics', 'getTissue'])
+const genes = reactive([
+  {'value': 'gene1', 'name': 'gene1'},
+  {'value': 'gene2', 'name': 'gene2'},
+  {'value': 'gene3', 'name': 'gene3'},
+  {'value': 'gene4', 'name': 'gene4'},
+  {'value': 'gene5', 'name': 'gene5'},
+  {'value': 'gene6', 'name': 'gene6'},
+  {'value': 'gene7', 'name': 'gene7'},
+  {'value': 'gene8', 'name': 'gene8'},
+  {'value': 'gene9', 'name': 'gene9'},
+  {'value': 'qqqq', 'name': 'gene9'}
+]);
 
 watch(() => data.species, (newValue, oldValue) => {
   console.log(newValue, oldValue)
@@ -85,7 +98,22 @@ watch(() => data.tissue, (newValue, oldValue) => {
       })
 })
 
+const createFilter = (queryString) => {
+  return (gene) => {
+    console.log('createFilter', queryString, gene)
+    return gene.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+  }
+}
 
+const querySearch = (queryString, cb) => {
+  const results = queryString ? genes.filter(createFilter(queryString)) : genes
+  console.log('res', results)
+  cb(results)
+}
+
+const handleSelect = (item) => {
+  console.log(item)
+}
 </script>
 
 <style>

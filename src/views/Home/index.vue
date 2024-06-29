@@ -1,7 +1,7 @@
 <template>
   <Left @getOmics="emitsOmics" @getTissue="emitsTissue"/>
   <el-main class="main">
-    <template v-if="Object.keys(tissueData.data).length = 0">
+    <template v-if="Object.keys(tissueData.data).length === 0">
       <Chart :options="chartOptions"/>
     </template>
     <template v-if="Object.keys(tissueData.data).length > 0">
