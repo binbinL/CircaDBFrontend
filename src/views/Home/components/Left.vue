@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="vertical-radio-group">
-      <el-select v-model="data.species" placeholder="please select Species">
+      <el-select v-model="data.species" placeholder="please select Species" @change="handleSpeciesChange">
         <el-option label="Human" value="Human"/>
         <el-option label="Mus" value="Mus"/>
       </el-select>
@@ -49,7 +49,7 @@ import {watch, reactive, ref} from 'vue'
 import axios from 'axios'
 
 const data = reactive({
-  species: 'Mus',
+  species: '',
   omics: '',
   tissue: '',
   gene: ''
@@ -57,30 +57,24 @@ const data = reactive({
 
 const tissues = ref({})
 const emits = defineEmits(['getOmics', 'getTissue'])
-const genes = reactive([
-  {'value': 'gene1', 'name': 'gene1'},
-  {'value': 'gene2', 'name': 'gene2'},
-  {'value': 'gene3', 'name': 'gene3'},
-  {'value': 'gene4', 'name': 'gene4'},
-  {'value': 'gene5', 'name': 'gene5'},
-  {'value': 'gene6', 'name': 'gene6'},
-  {'value': 'gene7', 'name': 'gene7'},
-  {'value': 'gene8', 'name': 'gene8'},
-  {'value': 'gene9', 'name': 'gene9'},
-  {'value': 'qqqq', 'name': 'gene9'}
-]);
+const genes = reactive([]);
 
-watch(() => data.species, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
-})
+function handleSpeciesChange() {
+  // 在这里根据选择的物种进行相应的渲染操作
+  console.log('Selected species:', data.species);
+  // 根据选择的物种进行相应的渲染操作，例如根据不同的物种显示不同的内容
+
+}
+
 watch(() => data.omics, (newValue, oldValue) => {
   console.log('watch-omics', newValue, oldValue)
   axios.get(`/api/${data.omics}`)
       .then(response => {
         console.log('left', response.data);
-        tissues.value = response.data.data
-        // data.tissue = Object.keys(tissues.value)[0]
+        tissues.value = response.data.data.tissue_count
         emits('getOmics', response.data.data)
+        genes.splice(0, genes.length, ...response.data.data.genenames)
+        console.log(genes.value)
       })
       .catch(error => {
         console.error(error);
