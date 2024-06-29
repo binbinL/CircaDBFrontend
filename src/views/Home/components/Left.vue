@@ -36,7 +36,7 @@
           :fetch-suggestions="querySearch"
           clearable
           placeholder="Please Input Gene"
-          @select="handleSelect"
+          @select="handleGeneSelect"
       />
     </div>
 
@@ -105,8 +105,17 @@ const querySearch = (queryString, cb) => {
   cb(results)
 }
 
-const handleSelect = (item) => {
-  console.log(item)
+const handleGeneSelect = (item) => {
+  console.log('handleGeneSelect', item)
+  data.gene = item.value
+  axios.get(`/api/gene/${data.gene}`)
+      .then(response => {
+        console.log('left', response.data.data);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+
 }
 </script>
 
