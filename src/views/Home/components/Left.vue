@@ -47,6 +47,7 @@
 <script setup>
 import {watch, reactive, ref} from 'vue'
 import axios from 'axios'
+import genenames from '@/data/genenames.json'
 
 const data = reactive({
   species: '',
@@ -56,8 +57,8 @@ const data = reactive({
 })
 
 const tissues = ref({})
-const emits = defineEmits(['getOmics', 'getTissue'])
-const genes = reactive([]);
+const emits = defineEmits(['getOmics', 'getTissue','getGene'])
+const genes = reactive({name: []});
 
 function handleSpeciesChange() {
   // 在这里根据选择的物种进行相应的渲染操作
@@ -70,11 +71,11 @@ watch(() => data.omics, (newValue, oldValue) => {
   console.log('watch-omics', newValue, oldValue)
   axios.get(`/api/omics`, {params: {omics: data.omics}})
       .then(response => {
-        console.log('left', response.data);
         tissues.value = response.data.data.tissue_count
         emits('getOmics', response.data.data)
-        genes.splice(0, genes.length, ...response.data.data.genenames)
-        console.log(genes.value)
+        // genes.splice(0, genes.length, ...response.data.data.genenames
+        //genes.splice(0, genes.length, genenames.Mus.genenames)
+        genes.name = genenames.Mus.genenames
       })
       .catch(error => {
         console.error(error);
@@ -94,23 +95,25 @@ watch(() => data.tissue, (newValue, oldValue) => {
 
 const createFilter = (queryString) => {
   return (gene) => {
-    console.log('createFilter', queryString, gene)
+    // console.log('createFilter', queryString, gene)
     return gene.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
   }
 }
 
 const querySearch = (queryString, cb) => {
-  const results = queryString ? genes.filter(createFilter(queryString)) : genes
-  console.log('res', results)
+  const results = queryString ? genes.name.filter(createFilter(queryString)) : genes.name
+  // console.log('res', results)
   cb(results)
 }
 
 const handleGeneSelect = (item) => {
   console.log('handleGeneSelect', item)
   data.gene = item.value
-  axios.get(`/api/gene/${data.gene}`)
+  console.log(data.omics, data.tissue, data.gene)
+  axios.get(`/api/omics/tissue/gene`, {params: {omics: data.omics, tissue: data.tissue || null, gene: data.gene}})
       .then(response => {
-        console.log('left', response.data.data);
+        console.log('leftGene', response.data.data);
+        emits('getGene', response.data.data)
       })
       .catch(error => {
         console.error(error);
