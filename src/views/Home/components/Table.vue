@@ -1,12 +1,14 @@
 <template>
   <el-table :data="tableData" stripe style="width: 100%">
-    <el-table-column prop="GSE__GSE" label="GSE" />
+    <el-table-column prop="GSE__GSE" label="GSE"/>
     <el-table-column prop="GSE__title" label="Title"/>
   </el-table>
 </template>
 
 <script setup>
-const props = defineProps({
+import {watch, reactive} from 'vue';
+
+const props = reactive({
   data: {
     type: Object,
     required: true
@@ -15,5 +17,8 @@ const props = defineProps({
 
 const tableData = JSON.parse(JSON.stringify(props.data));
 console.log('tableData', Object.values(tableData))
-
+watch(props, (newVal) => {
+  console.log('tableData', newVal.data)
+  tableData.data = newVal.data
+});
 </script>

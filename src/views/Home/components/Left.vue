@@ -68,7 +68,7 @@ function handleSpeciesChange() {
 
 watch(() => data.omics, (newValue, oldValue) => {
   console.log('watch-omics', newValue, oldValue)
-  axios.get(`/api/${data.omics}`)
+  axios.get(`/api/omics`, {params: {omics: data.omics}})
       .then(response => {
         console.log('left', response.data);
         tissues.value = response.data.data.tissue_count
@@ -82,7 +82,7 @@ watch(() => data.omics, (newValue, oldValue) => {
 })
 watch(() => data.tissue, (newValue, oldValue) => {
   console.log('watch-tissue', newValue, oldValue)
-  axios.get(`/api/${data.omics}/${data.tissue}`)
+  axios.get(`/api/omics/tissue`, {params: {omics: data.omics, tissue: data.tissue}})
       .then(response => {
         console.log('left', response.data.data);
         emits('getTissue', response.data.data)
