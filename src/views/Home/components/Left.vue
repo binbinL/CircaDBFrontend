@@ -32,6 +32,7 @@
       <el-autocomplete
           v-model="data.gene"
           :fetch-suggestions="querySearch"
+          :trigger-on-focus="false"
           clearable
           placeholder="Please Input Gene"
           @select="handleGeneSelect"
@@ -98,9 +99,16 @@ watch(() => data.tissue, (newValue, oldValue) => {
 })
 
 const createFilter = (queryString) => {
+  let count = 0;
   return (gene) => {
-    // console.log('createFilter', queryString, gene)
-    return gene.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+    if (count >= 10) {
+      return false; // 如果已经找到十条匹配项，立即返回false
+    }
+    if (gene.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) {
+      count++;
+      return true;
+    }
+    return false;
   }
 }
 
