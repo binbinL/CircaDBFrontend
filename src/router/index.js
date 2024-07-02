@@ -5,13 +5,14 @@ import GuideView from '../views/Guide/index.vue'
 import ContactView from '../views/Concat/index.vue'
 import DownLoadView from "../views/Download/index.vue";
 import LayOut from "../views/Layout/index.vue";
+import Details from "../views/Details/index.vue"
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            alias:'/home',
+            alias: '/home',
             component: LayOut,
             children: [
                 {
@@ -40,6 +41,11 @@ const router = createRouter({
                     component: DownLoadView,
                 },
             ]
+        },
+        {
+            path: '/gse/gene',
+            component: Details,
+            props: (route) => ({gse: route.query.gse, gene: route.query.gene})
         }
 
     ]
