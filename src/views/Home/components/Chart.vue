@@ -3,20 +3,18 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch, toRefs} from "vue";
+import {ref, onMounted, watch, toRefs, reactive} from "vue";
 import * as echarts from "echarts";
 
 const props = defineProps({
   options: {
     type: Object,
     default: () => ({}),
-    required: true,
   },
 });
 
 
 const {options} = toRefs(props);
-
 const container = ref(null);
 const chart = ref(null);
 
@@ -25,15 +23,10 @@ onMounted(() => {
   chart.value.setOption(props.options);
 });
 
-watch(
-    options,
-    (newOptions) => {
+watch(options, (newOptions) => {
       const chartData = newOptions.series[0].data;
-      chart.value.setOption({
-        series: [{
-          data: chartData
-        }]
-      });
+      console.log('chart_chartData', chartData)
+      chart.value.setOption(props.options);
     },
     {deep: true}
 );

@@ -18,15 +18,13 @@
     </div>
 
     <div style="margin-top: 20px" class="vertical-radio-group">
-      <el-select v-model="data.tissue" placeholder="please select Tissue">
+      <el-select v-model="data.tissue" clearable placeholder="please select Tissue">
         <el-option
             v-for="(item, key) in tissues"
             :key="key"
             :label="key"
             :value="key"
         />
-
-
       </el-select>
     </div>
 
@@ -57,7 +55,7 @@ const data = reactive({
 })
 
 const tissues = ref({})
-const emits = defineEmits(['getOmics', 'getTissue','getGene'])
+const emits = defineEmits(['getOmics', 'getTissue', 'getGene'])
 const genes = reactive({name: []});
 
 function handleSpeciesChange() {
@@ -83,14 +81,20 @@ watch(() => data.omics, (newValue, oldValue) => {
 })
 watch(() => data.tissue, (newValue, oldValue) => {
   console.log('watch-tissue', newValue, oldValue)
-  axios.get(`/api/omics/tissue`, {params: {omics: data.omics, tissue: data.tissue}})
-      .then(response => {
-        console.log('left', response.data.data);
-        emits('getTissue', response.data.data)
-      })
-      .catch(error => {
-        console.error(error);
-      })
+  if (newValue === undefined) {
+    emits('getTissue', {})
+
+  } else {
+    axios.get(`/api/omics/tissue`, {params: {omics: data.omics, tissue: data.tissue}})
+        .then(response => {
+          console.log('left', response.data.data);
+          emits('getTissue', response.data.data)
+        })
+        .catch(error => {
+          console.error(error);
+        })
+  }
+
 })
 
 const createFilter = (queryString) => {

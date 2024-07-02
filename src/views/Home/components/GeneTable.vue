@@ -8,19 +8,23 @@
 </template>
 
 <script setup>
-import {watch, reactive} from 'vue';
+import {watch, ref} from 'vue';
 
-const props = reactive({
-  data: {
+const props = defineProps({
+  genedata: {
     type: Object,
-    required: true
   }
 });
-
-const tableData = JSON.parse(JSON.stringify(props.data));
-console.log('tableData', Object.values(tableData))
-watch(props, (newVal) => {
-  console.log('tableData', newVal.data)
-  tableData.data = newVal.data
+const tableData = ref(props.genedata)
+watch(() => props.genedata, (newVal) => {
+  tableData.value = newVal;
+  console.log('tableData', newVal)
 });
+
+// const tableData = JSON.parse(JSON.stringify(props.data));
+// console.log('tableData', Object.values(tableData))
+// watch(props, (newVal) => {
+//   console.log('tableData', newVal.data)
+//   tableData.data = newVal.data
+// });
 </script>
