@@ -29,8 +29,8 @@ const handleRowClick = (row) => {
   console.log(row.GSE__GSE, row.gene__name)
 
   //router.push({path: '/gse/gene', query: {gse: row.GSE__GSE, gene: row.gene__name}}, {target: '_blank'});
-  window.open(`api/gse/gene/?gse=${row.GSE__GSE}&gene=${row.gene__name}`, '_blank')
-
+  //window.open(`api/gse/gene/?gse=${row.GSE__GSE}&gene=${row.gene__name}`, '_blank')
+  window.open(`/details?gse=${row.GSE__GSE}&gene=${row.gene__name}`, '_blank')
 };
 
 

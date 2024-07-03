@@ -5,7 +5,7 @@ import GuideView from '../views/Guide/index.vue'
 import ContactView from '../views/Concat/index.vue'
 import DownLoadView from "../views/Download/index.vue";
 import LayOut from "../views/Layout/index.vue";
-import Details from "../views/Details/index.vue"
+import DetailsView from "../views/Details/index.vue"
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,13 +40,18 @@ const router = createRouter({
                     name: 'download',
                     component: DownLoadView,
                 },
+                {
+                    path: '/details',
+                    component: DetailsView,
+                    props: (route) => ({gse: route.query.gse, gene: route.query.gene})
+                }
             ]
         },
-        {
-            path: '/gse/gene',
-            component: Details,
-            props: (route) => ({gse: route.query.gse, gene: route.query.gene})
-        }
+        // {
+        //     path: '/gse/gene',
+        //     component: Details,
+        //     props: (route) => ({gse: route.query.gse, gene: route.query.gene})
+        // }
 
     ]
 })
