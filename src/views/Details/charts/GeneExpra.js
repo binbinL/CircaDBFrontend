@@ -1,95 +1,73 @@
-var data = [
-    [{x: 1, y: [10, 15, 20]},
-        {x: 3, y: [15, 18, 26]},
-        {x: 5, y: [8, 12, 18]},
-        {x: 7, y: [14, 19, 25]},
-        {x: 9, y: [16, 30, 28]}],
+// // 假设xAxisHour是一个包含CT时间数据的数组
+// let xAxisHour = ['CT0', 'CT3', 'CT5', 'CT8', 'CT12', 'CT15', 'CT18', 'CT21'];
+//
+// // 假设dataList是一个包含多组数据的数组，每组数据对应不同条件下的重复实验
+// let dataList = [
+//     [
+//         [880, 1000, 1000, 934, 1290, 1500, 1420, 1320], // 条件1下的重复实验数据
+//         [810, 925, 895, 930, 1285, 1325, 1315, 1195],  // 条件1下的另一组重复实验数据
+//         [700, 640, 584, 1000, 1285, 1325, 1315, 1195]
+//     ],
+//     [
+//         [620, 732, 701, 734, 1090, 1130, 1120, 1000], // 条件2下的重复实验数据
+//         [600, 700, 500, 530, 800, 900, 940, 995]  // 条件2下的另一组重复实验数据
+//     ]
+// ];
+//
+// // 假设conditions是一个包含条件信息的数组
+// let conditions = ['条件A', '条件B'];
+//
+// // 定义一组颜色和线型用于区分不同条件下的数据和不同重复实验
+// let colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4'];
+let option = {
+    xAxis: {
+        type: 'category',
+        data: []//xAxisHour
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [],
+    legend: {
+        data: []
+    }
+};
+// // 动态生成数据系列对象和图例名称
+// dataList.forEach((conditionData, conditionIndex) => {
+//     let meanData = new Array(xAxisHour.length).fill(0);
+//
+//     conditionData.forEach((replicateData) => {
+//         replicateData.forEach((value, index) => {
+//             meanData[index] += value; // 累加同一时间点的数据
+//         });
+//     });
+//
+//     meanData = meanData.map(value => value / conditionData.length); // 计算均值
+//
+//     option.series.push({
+//         data: meanData,
+//         type: 'line', // 使用线连接均值数据点
+//         lineStyle: {
+//             color: colors[conditionIndex % colors.length] // 使用不同颜色区分不同条件下的数据
+//         },
+//         name: conditions[conditionIndex] + ' 均值' // 设置数据系列名称
+//     });
+//
+//     conditionData.forEach((data, dataIndex) => {
+//         option.series.push({
+//             data: data,
+//             type: 'scatter', // 使用点图展示原始数据
+//             symbolSize: 8, // 设置点的大小
+//             itemStyle: {
+//                 color: colors[conditionIndex % colors.length] // 使用同一颜色区分不同条件下的数据
+//             },
+//             name: conditions[conditionIndex] + ' 实验' + (dataIndex + 1) // 设置数据系列名称
+//         });
+//     });
+//
+//     option.legend.data.push(conditions[conditionIndex] + ' 均值'); // 添加均值数据的图例名称
+// });
 
-    [{x: 1, y: [12, 17, 25]},
-        {x: 3, y: [16, 19, 25]},
-        {x: 5, y: [10, 12, 20]},
-        {x: 7, y: [10, 20, 30]},
-        {x: 9, y: [18, 28, 36]}],
-];
-var meanData0 = data[0].map(item => {
-    return {x: item.x, y: item.y.reduce((a, b) => a + b, 0) / item.y.length};
-});
-var meanData1 = data[1].map(item => {
-    return {x: item.x, y: item.y.reduce((a, b) => a + b, 0) / item.y.length};
-});
 export default function GeneExpraOption() {
-    return {
-        xAxis: {
-            type: 'category',
-            data: data[0].map(item => item.x)
-        },
-        yAxis: {
-            type: 'value'
-        },
-        legend: {
-            data: ['con1', 'con2']
-        },
-        tooltip: {
-            trigger: 'axis',
-            formatter: function (params) {
-                if (params.data && params.data.seriesId) {
-                    var seriesId = params.data.seriesId;
-                    return 'SeriesId: ' + seriesId;
-                }
-                return ''; // 如果没有 seriesId，返回空字符串
-            }
-        },
-        series: [
-            {
-                name: 'con1',
-                data: data[0].map(item => item.y[0]),
-                type: 'scatter',
-                seriesId: 'con1_1',
-            },
-            {
-                name: 'con1',
-                data: data[0].map(item => item.y[1]),
-                type: 'scatter',
-                seriesId: 'con1_2',
-            },
-            {
-                name: 'con1',
-                data: data[0].map(item => item.y[2]),
-                type: 'scatter',
-                seriesId: 'con1_3',
-            },
-            {
-                name: 'con1',
-                data: meanData0.map(item => item.y),
-                type: 'line',
-                smooth: true
-            },
-            {
-                name: 'con2',
-                data: data[1].map(item => item.y[0]),
-                type: 'scatter',
-                smooth: true,
-                seriesId: 'con2_1',
-            },
-            {
-                name: 'con2',
-                data: data[1].map(item => item.y[1]),
-                type: 'scatter',
-                seriesId: 'con2_2',
-            },
-            {
-                name: 'con2',
-                data: data[1].map(item => item.y[2]),
-                type: 'scatter',
-                seriesId: 'con2_3',
-            },
-            {
-                name: 'con2',
-                data: meanData1.map(item => item.y),
-                type: 'line',
-                smooth: true
-            },
-        ]
-    };
-
+    return option
 }
