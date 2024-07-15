@@ -8,10 +8,9 @@
 </template>
 
 <script setup>
-import {reactive, ref,markRaw } from 'vue';
+import {reactive, ref } from 'vue';
 import {useRoute} from 'vue-router';
 import axios from "axios";
-import * as echarts from 'echarts';
 import Chart from "@/views/Details/components/Chart.vue";
 import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
 
@@ -41,9 +40,7 @@ axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}})
             meanData[index] += value; // 累加同一时间点的数据
           });
         });
-
         meanData = meanData.map(value => value / conditionData.length); // 计算均值
-
         chartOptions.series.push({
           data: meanData,
           type: 'line', // 使用线连接均值数据点
@@ -58,7 +55,7 @@ axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}})
           chartOptions.series.push({
             data: data,
             type: 'scatter', // 使用点图展示原始数据
-            symbolSize: 8, // 设置点的大小
+            symbolSize: 6, // 设置点的大小
             itemStyle: {
               color: colors[conditionIndex % colors.length] // 使用同一颜色区分不同条件下的数据
             },
@@ -68,13 +65,12 @@ axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}})
 
         chartOptions.legend.data.push(conditions[conditionIndex]); // 添加均值数据的图例名称
       });
-      console.log('data:', expra.value.condition);
-      console.log('data:', expra.value.data);
-      console.log('data:', expra.value.xAxis);
+      // console.log('data:', expra.value.condition);
+      // console.log('data:', expra.value.data);
+      // console.log('data:', expra.value.xAxis);
       chart.options = chartOptions;
     })
     .catch(error => {
       console.error(error);
     })
-
 </script>

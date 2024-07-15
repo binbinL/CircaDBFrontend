@@ -72,9 +72,9 @@ watch(() => data.omics, (newValue, oldValue) => {
       .then(response => {
         tissues.value = response.data.data.tissue_count
         emits('getOmics', response.data.data)
-        // genes.splice(0, genes.length, ...response.data.data.genenames
-        //genes.splice(0, genes.length, genenames.Mus.genenames)
         genes.name = genenames.Mus.genenames
+
+        console.log('left-watch-omic', response.data.data.tissue_count)
       })
       .catch(error => {
         console.error(error);

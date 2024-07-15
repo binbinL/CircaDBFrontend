@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch, toRefs, reactive} from "vue";
+import {ref, onMounted, watch, toRefs, reactive, markRaw} from "vue";
 import * as echarts from "echarts";
 
 const props = defineProps({
@@ -12,24 +12,22 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
-
-const {options} = toRefs(props);
+const {propsRef} = toRefs(props);
 const container = ref(null);
 const chart = ref(null);
-
 onMounted(() => {
-  chart.value = echarts.init(container.value);
+  chart.value = markRaw(echarts.init(container.value));
   chart.value.setOption(props.options);
 });
 
-watch(options, (newOptions) => {
-      const chartData = newOptions.series;
+watch(() => props.options, (newOptions) => {
+      const chartData = newOptions.series[0].data;
       console.log('chart_chartData', chartData)
-      chart.value.setOption(props.options);
+      chart.value.setOption(newOptions);
     },
     {deep: true}
 );
+
 
 </script>
 

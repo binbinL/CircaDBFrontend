@@ -11,7 +11,6 @@
 
 <script setup>
 import {watch, ref} from 'vue';
-import router from '@/router'
 
 const props = defineProps({
   genedata: {

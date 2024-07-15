@@ -17,7 +17,7 @@
 
 <script setup>
 import Left from "@/views/Home/components/Left.vue";
-import {reactive, watch} from 'vue';
+import {reactive, watch, ref, toRef} from 'vue';
 import Chart from "@/views/Home/components/Chart.vue";
 import RingChartOptionCreator from "@/views/Home/charts/RingChartOptions.js";
 import Table from "@/views/Home/components/Table.vue";
@@ -26,7 +26,8 @@ import GeneTable from "@/views/Home/components/GeneTable.vue";
 const chart = reactive({
   options: {}
 });
-const chartOptions = RingChartOptionCreator();
+// const chart = ref(null)
+let chartOptions = RingChartOptionCreator();
 const omicsData = reactive({
   data: {}
 })
@@ -46,22 +47,28 @@ const emitsGene = (data) => {
   geneData.data = data
 }
 
-
 watch(omicsData, (newVal) => {
   const proxyData = newVal.data.tissue_count
-  chartOptions.series[0].data = Object.keys(proxyData).map(key => {
-    return {
-      value: proxyData[key],
-      name: key
-    };
-  })
+  if (Object.keys(proxyData).length === 0) {
+    // 如果proxyData为空，返回特定的数据
+    chartOptions.series[0].data = [{
+      value: 1,  // 特定数值
+      name: 'null'  // 特定名称
+    }];
+  } else {
+    // 如果proxyData不为空，根据proxyData生成数据
+    chartOptions.series[0].data = Object.keys(proxyData).map(key => {
+      return {
+        value: proxyData[key],
+        name: key
+      };
+    });
+  }
   chart.options = chartOptions;
-  console.log('chart', chart.options)
+  console.log('home-index-chart', chartOptions.series[0].data)
 });
 
-watch(chart.options, (newVal) => {
-  console.log('chart-change', newVal.options)
-});
+
 
 watch(tissueData, (newVal) => {
   console.log('index-watch-tissue', newVal.data)
