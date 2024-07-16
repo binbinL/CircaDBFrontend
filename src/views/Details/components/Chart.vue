@@ -20,12 +20,13 @@ const chart = ref(null);
 
 onMounted(() => {
   chart.value = markRaw(echarts.init(container.value));
-  chart.value.setOption(props.options);
+  chart.value.setOption(options);
+
 });
 
-watch(options, (newOptions) => {
-      const chartData = newOptions;
-      console.log('chart_chartData', chartData)
+watch(
+    options,
+    (newOptions) => {
       chart.value.setOption(newOptions);
     },
     {deep: true}

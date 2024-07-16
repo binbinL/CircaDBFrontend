@@ -50,7 +50,7 @@ import genenames from '@/data/genenames.json'
 
 const data = reactive({
   species: '',
-  omics: 'Transcriptome',
+  omics: '',
   tissue: '',
   gene: ''
 })
@@ -66,16 +66,16 @@ function handleSpeciesChange() {
 
 }
 
-onMounted(() => {
-  fetchData();
-})
+// onMounted(() => {
+//   fetchOmicsData();
+// })
 
-function fetchData() {
+function fetchOmicsData() {
   axios.get(`/api/omics`, {params: {omics: data.omics}})
       .then(response => {
         tissues.value = response.data.data.tissue_count
         emits('getOmics', response.data.data)
-        genes.name = genenames.Mus.genenames
+        genes.name = genenames.Mus.genenames//写死的Mus
         console.log('left', response.data.data.tissue_count)
       })
       .catch(error => {
@@ -85,7 +85,7 @@ function fetchData() {
 
 watch(() => data.omics, (newValue, oldValue) => {
   console.log('watch-omics', newValue, oldValue)
-  fetchData();
+  fetchOmicsData();
 })
 
 watch(() => data.tissue, (newValue, oldValue) => {

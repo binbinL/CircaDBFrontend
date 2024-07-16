@@ -24,12 +24,9 @@ import RingChartOptionCreator from "@/views/Home/charts/RingChartOptions.js";
 import Table from "@/views/Home/components/Table.vue";
 import GeneTable from "@/views/Home/components/GeneTable.vue";
 
-// let charts = reactive({
-//   options: {}
-// });
-
 // const options = ref(null)
 // let chartOptions = RingChartOptionCreator();
+
 const omicsData = reactive({
   data: {}
 })
@@ -49,31 +46,7 @@ const emitsGene = (data) => {
   geneData.data = data
 }
 
-// watch(omicsData, (newVal) => {
-//   const proxyData = newVal.data.tissue_count
-//   if (Object.keys(proxyData).length === 0) {
-//     // 如果proxyData为空，返回特定的数据
-//     chartOptions.series[0].data = [{
-//       value: 1,  // 特定数值
-//       name: 'null'  // 特定名称
-//     }];
-//   } else {
-//     // 如果proxyData不为空，根据proxyData生成数据
-//     chartOptions.series[0].data = Object.keys(proxyData).map(key => {
-//       return {
-//         value: proxyData[key],
-//         name: key
-//       };
-//     });
-//   }
-//   charts.options = chartOptions;
-//   console.log('home-index-chart', charts.options.series[0].data)
-// });
 
-
-// watch(() => charts, (newVal, oldValue) => {
-//   console.log('index-watch-chart', newVal, oldValue)
-// }, {deep: true});
 
 const options = ref(null)
 watch(omicsData, (newVal) => {
@@ -82,10 +55,7 @@ watch(omicsData, (newVal) => {
   options.value = RingChartOptionCreator(data)
 });
 
-// const options = computed(() => {
-//   const data = getTissueData(omicsData.data)
-//   return RingChartOptionCreator(data)
-// })
+
 
 function getTissueData(rawdata) {
   let tissueData = []
@@ -102,7 +72,6 @@ function getTissueData(rawdata) {
       }
     ];
   } else {
-    // 如果proxyData不为空，根据proxyData生成数据
     tissueData = Object.keys(rawdata).map(key => {
       return {
         value: rawdata[key],

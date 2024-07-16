@@ -10,16 +10,17 @@
 
 
 <script setup>
-import {watch, ref} from 'vue';
+import {watch, toRefs, ref} from 'vue';
 
 const props = defineProps({
   genedata: {
     type: Object,
   }
 });
-const tableData = ref(props.genedata)
+const {genedata} = toRefs(props)
+const tableData = ref(genedata)
 
-watch(() => props.genedata, (newVal) => {
+watch(() => genedata, (newVal) => {
   tableData.value = newVal;
   console.log('tableData', newVal)
 });
@@ -27,16 +28,9 @@ watch(() => props.genedata, (newVal) => {
 const handleRowClick = (row) => {
   console.log(row.GSE__GSE, row.gene__name)
 
-  //router.push({path: '/gse/gene', query: {gse: row.GSE__GSE, gene: row.gene__name}}, {target: '_blank'});
   //window.open(`api/gse/gene/?gse=${row.GSE__GSE}&gene=${row.gene__name}`, '_blank')
   window.open(`/details?gse=${row.GSE__GSE}&gene=${row.gene__name}`, '_blank')
 };
 
 
-// const tableData = JSON.parse(JSON.stringify(props.data));
-// console.log('tableData', Object.values(tableData))
-// watch(props, (newVal) => {
-//   console.log('tableData', newVal.data)
-//   tableData.data = newVal.data
-// });
 </script>

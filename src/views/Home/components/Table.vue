@@ -6,22 +6,18 @@
 </template>
 
 <script setup>
-import {watch, ref, reactive} from 'vue';
+import {watch, toRefs, ref, reactive} from 'vue';
 
 const props = defineProps({
   tissuedata: {
     type: Object,
   }
 });
-const tableData = ref(props.tissuedata)
+const {tissuedata} = toRefs(props)
+const tableData = ref(tissuedata)
 
-watch(() => props.tissuedata, (newVal) => {
+watch(() => tissuedata, (newVal) => {
   tableData.value = newVal;
 });
 
-// const tableData = ref(JSON.parse(JSON.stringify(props.data)));
-// watch(props.tissuedata, (newVal) => {
-//   gse_data.value = newVal
-//   console.log('tissuedata', newVal)
-// });
 </script>
