@@ -133,13 +133,18 @@ const handleGeneSelect = (item) => {
   axios.get(`/api/omics/tissue/gene`, {params: {omics: data.omics, tissue: data.tissue || null, gene: data.gene}})
       .then(response => {
         console.log('leftGene', response.data.data);
-        emits('getGene', response.data.data)
+        emits('getGene', data.gene, response.data.data)
       })
       .catch(error => {
         console.error(error);
       })
-
 }
+watch(() => data.gene, (newValue, oldValue) => {
+  console.log('watch-gene', newValue, oldValue)
+  if (newValue === '') {
+    emits('getGene', data.gene, {})
+  }
+})
 </script>
 
 <style>

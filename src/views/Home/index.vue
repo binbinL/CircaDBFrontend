@@ -34,6 +34,7 @@ const tissueData = reactive({
   data: {}
 })
 const geneData = reactive({
+  name: '',
   data: {}
 })
 const emitsOmics = (data) => {
@@ -42,10 +43,10 @@ const emitsOmics = (data) => {
 const emitsTissue = (data) => {
   tissueData.data = data
 }
-const emitsGene = (data) => {
+const emitsGene = (name, data) => {
+  geneData.name = name
   geneData.data = data
 }
-
 
 
 const options = ref(null)
@@ -54,7 +55,6 @@ watch(omicsData, (newVal) => {
   const data = getTissueData(newVal.data.tissue_count)
   options.value = RingChartOptionCreator(data)
 });
-
 
 
 function getTissueData(rawdata) {
@@ -93,6 +93,11 @@ watch(geneData, (newVal) => {
   console.log('index-watch-gene', newVal.data)
   geneData.data = newVal.data
   console.log('geneData Length', Object.keys(geneData.data).length)
+  console.log('genename', geneData.name)
+  if (Object.keys(geneData.data).length === 0 && geneData.name.length !== 0) {
+    // 显示弹窗提示
+    alert('this gene no result');
+  }
 });
 
 </script>
