@@ -1,4 +1,4 @@
-export default function RingChartOptions() {
+export default function RingChartOptions(data=[]) {
     return {
         tooltip: {
             trigger: 'item'
@@ -9,7 +9,7 @@ export default function RingChartOptions() {
         },
         series: [
             {
-                name: 'Access From',
+                name: 'Tissue Count',
                 type: 'pie',
                 radius: ['40%', '70%'],
                 avoidLabelOverlap: false,
@@ -32,13 +32,7 @@ export default function RingChartOptions() {
                 labelLine: {
                     show: false
                 },
-                data: [
-                    {value: 1048, name: 'Search Engine'},
-                    {value: 735, name: 'Direct'},
-                    {value: 580, name: 'Email'},
-                    {value: 484, name: 'Union Ads'},
-                    {value: 300, name: 'Video Ads'}
-                ]
+                data: data
             }
         ]
     };

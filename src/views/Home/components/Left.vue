@@ -44,13 +44,13 @@
 </template>
 
 <script setup>
-import {watch, reactive, ref} from 'vue'
+import {watch, reactive, ref, onMounted} from 'vue'
 import axios from 'axios'
 import genenames from '@/data/genenames.json'
 
 const data = reactive({
   species: '',
-  omics: '',
+  omics: 'Transcriptome',
   tissue: '',
   gene: ''
 })
@@ -66,20 +66,28 @@ function handleSpeciesChange() {
 
 }
 
-watch(() => data.omics, (newValue, oldValue) => {
-  console.log('watch-omics', newValue, oldValue)
+onMounted(() => {
+  fetchData();
+})
+
+function fetchData() {
   axios.get(`/api/omics`, {params: {omics: data.omics}})
       .then(response => {
         tissues.value = response.data.data.tissue_count
         emits('getOmics', response.data.data)
         genes.name = genenames.Mus.genenames
-
-        console.log('left-watch-omic', response.data.data.tissue_count)
+        console.log('left', response.data.data.tissue_count)
       })
       .catch(error => {
         console.error(error);
       })
+}
+
+watch(() => data.omics, (newValue, oldValue) => {
+  console.log('watch-omics', newValue, oldValue)
+  fetchData();
 })
+
 watch(() => data.tissue, (newValue, oldValue) => {
   console.log('watch-tissue', newValue, oldValue)
   if (newValue === undefined) {
