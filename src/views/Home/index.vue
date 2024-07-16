@@ -1,24 +1,36 @@
 <template>
   <Left @getOmics="emitsOmics" @getTissue="emitsTissue" @getGene="emitsGene"/>
   <el-main class="main">
-    <template v-if="Object.keys(tissueData.data).length === 0 && Object.keys(geneData.data).length === 0">
-      <!--      <Chart :options="charts.options"/>-->
+
+    <template v-if="Object.keys(tissueData.data).length===0 && geneData.name.length === 0">
       <Chart :options="options"/>
     </template>
     <template v-else-if="Object.keys(tissueData.data).length > 0 && Object.keys(geneData.data).length === 0">
       <Table :tissuedata="tissueData.data"/>
     </template>
-    <!--    ="Object.keys(geneData.data).length > 0"-->
     <template v-else>
       <GeneTable :genedata="geneData.data"/>
     </template>
+
+    <!--    <template>-->
+    <!--      <div v-show="echart_show">-->
+    <!--        <Chart :options="options"/>-->
+    <!--      </div>-->
+    <!--      <div v-show="table_show">-->
+    <!--        <Table :tissuedata="tissueData.data"/>-->
+    <!--      </div>-->
+    <!--      <div v-show="genetable_show">-->
+    <!--        <GeneTable :genedata="geneData.data"/>-->
+    <!--      </div>-->
+    <!--    </template>-->
+
 
   </el-main>
 </template>
 
 <script setup>
 import Left from "@/views/Home/components/Left.vue";
-import {reactive, watch, computed, ref, toRef} from 'vue';
+import {reactive, watch, computed, ref} from 'vue';
 import Chart from "@/views/Home/components/Chart.vue";
 import RingChartOptionCreator from "@/views/Home/charts/RingChartOptions.js";
 import Table from "@/views/Home/components/Table.vue";
@@ -31,6 +43,7 @@ const omicsData = reactive({
   data: {}
 })
 const tissueData = reactive({
+  name: '',
   data: {}
 })
 const geneData = reactive({
@@ -40,28 +53,37 @@ const geneData = reactive({
 const emitsOmics = (data) => {
   omicsData.data = data
 }
-const emitsTissue = (data) => {
+const emitsTissue = (name, data) => {
+  tissueData.name = name
   tissueData.data = data
 }
 const emitsGene = (name, data) => {
   geneData.name = name
   geneData.data = data
 }
-
+// const echart_show = computed(() => {
+//   return Object.keys(tissueData.data).length === 0 && geneData.name.length === 0;
+// });
+// const table_show = computed(() => {
+//   return Object.keys(tissueData.data).length > 0 && Object.keys(geneData.data).length === 0;
+// });
+// const genetable_show = computed(() => {
+//   return Object.keys(geneData.data).length > 0;
+// });
 
 const options = ref(null)
-watch(omicsData, (newVal) => {
-  console.log('index-watchomics-data', newVal.data)
-  const data = getTissueData(newVal.data.tissue_count)
+watch(omicsData, (newOmicsData) => {
+  console.log('index-watchomics-data', newOmicsData.data)
+  const data = getTissueData(newOmicsData.data.tissue_count)
   options.value = RingChartOptionCreator(data)
 });
 
 
 function getTissueData(rawdata) {
-  let tissueData = []
+  let tissueDatas = []
   if (Object.keys(rawdata).length === 0) {
     // 如果proxyData为空，返回特定的数据
-    tissueData = [
+    tissueDatas = [
       {
         value: 1,  // 特定数值
         name: 'null'  // 特定名称
@@ -72,14 +94,14 @@ function getTissueData(rawdata) {
       }
     ];
   } else {
-    tissueData = Object.keys(rawdata).map(key => {
+    tissueDatas = Object.keys(rawdata).map(key => {
       return {
         value: rawdata[key],
         name: key
       };
     });
   }
-  return tissueData
+  return tissueDatas
 }
 
 
@@ -94,9 +116,22 @@ watch(geneData, (newVal) => {
   geneData.data = newVal.data
   console.log('geneData Length', Object.keys(geneData.data).length)
   console.log('genename', geneData.name)
+  console.log('tissueDataname', tissueData.name)
   if (Object.keys(geneData.data).length === 0 && geneData.name.length !== 0) {
     // 显示弹窗提示
     alert('this gene no result');
+  }
+  if (geneData.name.length === 0 && Object.keys(tissueData.data).length === 0) {
+    console.log('how to do')
+    // echart_show.value = true;
+    // table_show.value = false;
+    // genetable_show.value = false;
+    // console.log('jjj')
+    // console.log('omicsData.data.tissue_count', omicsData.data.tissue_count)
+    // const data = getTissueData(omicsData.data.tissue_count)
+    // options.value = RingChartOptionCreator(data)
+    // console.log('options', options.value)
+
   }
 });
 

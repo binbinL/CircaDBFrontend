@@ -89,15 +89,13 @@ watch(() => data.omics, (newValue, oldValue) => {
 })
 
 watch(() => data.tissue, (newValue, oldValue) => {
-  console.log('watch-tissue', newValue, oldValue)
   if (newValue === undefined) {
-    emits('getTissue', {})
+    emits('getTissue', data.tissue, {})
 
   } else {
     axios.get(`/api/omics/tissue`, {params: {omics: data.omics, tissue: data.tissue}})
         .then(response => {
-          console.log('left', response.data.data);
-          emits('getTissue', response.data.data)
+          emits('getTissue', data.tissue, response.data.data)
         })
         .catch(error => {
           console.error(error);
