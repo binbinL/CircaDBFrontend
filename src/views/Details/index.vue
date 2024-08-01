@@ -96,7 +96,6 @@ function GetData(data) {
       });
     });
 
-
     legenddata.push(conditions[conditionIndex]); // 添加均值数据的图例名称
 
   });

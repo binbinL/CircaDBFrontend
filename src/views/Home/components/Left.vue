@@ -9,12 +9,18 @@
     </div>
 
     <div style="margin-top: 20px" class="vertical-radio-group">
-      <el-radio-group v-model="data.omics">
-        <el-radio-button label="Transcriptome" value="Transcriptome"/>
-        <el-radio-button label="Metabolome" value="Metabolome"/>
-        <el-radio-button label="Acetylome" value="Acetylome"/>
-        <el-radio-button label="Proteome" value="Proteome"/>
-      </el-radio-group>
+      <!--      <el-radio-group v-model="data.omics">-->
+      <!--        <el-radio-button label="Transcriptome" value="Transcriptome"/>-->
+      <!--        <el-radio-button label="Metabolome" value="Metabolome"/>-->
+      <!--        <el-radio-button label="Acetylome" value="Acetylome"/>-->
+      <!--        <el-radio-button label="Proteome" value="Proteome"/>-->
+      <!--      </el-radio-group>-->
+      <el-select v-model="data.omics" placeholder="please select Omics" @change="handleOmicChange">
+        <el-option label="Transcriptome" value="Transcriptome"/>
+        <el-option label="Metabolome" value="Metabolome"/>
+        <el-option label="Acetylome" value="Acetylome"/>
+        <el-option label="Proteome" value="Proteome"/>
+      </el-select>
     </div>
 
     <div style="margin-top: 20px" class="vertical-radio-group">
@@ -46,6 +52,7 @@
 <script setup>
 import {watch, reactive, ref, onMounted} from 'vue'
 import axios from 'axios'
+import {fetchOmicsData} from '@/apis/apis'
 import genenames from '@/data/genenames.json'
 
 const data = reactive({
@@ -70,23 +77,37 @@ function handleSpeciesChange() {
 //   fetchOmicsData();
 // })
 
-function fetchOmicsData() {
-  axios.get(`/api/omics`, {params: {omics: data.omics}})
+const handleOmicChange = () => {
+  console.log('Selected omics:', data.omics)
+  fetchOmicsData({omics: data.omics})
       .then(response => {
-        tissues.value = response.data.data.tissue_count
-        emits('getOmics', response.data.data)
+        console.log('left', response.tissue_count)
+        tissues.value = response.tissue_count
+        emits('getOmics', response)
         genes.name = genenames.Mus.genenames//写死的Mus
-        console.log('left', response.data.data.tissue_count)
+        console.log('left', response)
       })
       .catch(error => {
-        console.error(error);
+        console.log(error);
       })
 }
-
-watch(() => data.omics, (newValue, oldValue) => {
-  console.log('watch-omics', newValue, oldValue)
-  fetchOmicsData();
-})
+// function fetchOmicsData() {
+//   axios.get(`/api/omics`, {params: {omics: data.omics}})
+//       .then(response => {
+//         tissues.value = response.data.data.tissue_count
+//         emits('getOmics', response.data.data)
+//         genes.name = genenames.Mus.genenames//写死的Mus
+//         console.log('left', response.data.data.tissue_count)
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       })
+// }
+//
+// watch(() => data.omics, (newValue, oldValue) => {
+//   console.log('watch-omics', newValue, oldValue)
+//   fetchOmicsData();
+// })
 
 watch(() => data.tissue, (newValue, oldValue) => {
   if (newValue === undefined) {
