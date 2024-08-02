@@ -126,7 +126,6 @@ watch(geneData, (newVal) => {
     // echart_show.value = true;
     // table_show.value = false;
     // genetable_show.value = false;
-    // console.log('jjj')
     // console.log('omicsData.data.tissue_count', omicsData.data.tissue_count)
     // const data = getTissueData(omicsData.data.tissue_count)
     // options.value = RingChartOptionCreator(data)

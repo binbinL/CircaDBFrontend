@@ -76,36 +76,11 @@ function handleSpeciesChange() {
 //   fetchOmicsData();
 // })
 
-const handleOmicChange = () => {
-  console.log('Selected omics:', data.omics)
-  fetchOmicsData({omics: data.omics})
-      .then(response => {
-        tissues.value = response.tissue_count
-        emits('getOmics', response)
-        genes.name = genenames.Mus.genenames//写死的Mus
-      })
-      .catch(error => {
-        console.log(error);
-      })
-}
 
-const handleTissueChange = () => {
-  console.log('Selected tissue:', data.tissue)
-  if (data.tissue !== undefined) {
-    fetchTissueData({omics: data.omics, tissue: data.tissue})
-        .then(response => {
-          emits('getTissue', data.tissue, response)
-        })
-        .catch(error => {
-          console.log(error);
-        })
-  }
-
-}
-
-// watch(() => data.tissue, (newValue, oldValue) => {
-//   console.log('watch----tissue', data.gene)
-//   if (newValue === undefined || newValue === '') {
+// const handleOmicAndTissueChange = () => {
+//   console.log('Selected omics:', data.omics)
+//   console.log('Selected tissue:', data.tissue)
+//   if (data.tissue === undefined || data.tissue === '') {
 //     if (data.gene !== '') {
 //       fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
 //           .then(response => {
@@ -126,7 +101,7 @@ const handleTissueChange = () => {
 //             console.log(error);
 //           })
 //     }
-//   } else {
+//   } else if (data.gene === '' || data.gene === undefined) {
 //     fetchTissueData({omics: data.omics, tissue: data.tissue})
 //         .then(response => {
 //           emits('getTissue', data.tissue, response)
@@ -134,52 +109,17 @@ const handleTissueChange = () => {
 //         .catch(error => {
 //           console.log(error);
 //         })
+//   } else {
+//     fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
+//         .then(response => {
+//           emits('getGene', data.gene, response)
+//         })
+//         .catch(error => {
+//           console.error(error);
+//         })
 //   }
-// })
-
-const handleOmicAndTissueChange = () => {
-  console.log('Selected omics:', data.omics)
-  console.log('Selected tissue:', data.tissue)
-  if (data.tissue === undefined || data.tissue === '') {
-    if (data.gene !== '') {
-      fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
-          .then(response => {
-            emits('getGene', data.gene, response)
-          })
-          .catch(error => {
-            console.error(error);
-          })
-    } else {
-      emits('getTissue', data.tissue, {})
-      fetchOmicsData({omics: data.omics})
-          .then(response => {
-            tissues.value = response.tissue_count
-            emits('getOmics', response)
-            genes.name = genenames.Mus.genenames//写死的Mus
-          })
-          .catch(error => {
-            console.log(error);
-          })
-    }
-  } else if (data.gene === '' || data.gene === undefined) {
-    fetchTissueData({omics: data.omics, tissue: data.tissue})
-        .then(response => {
-          emits('getTissue', data.tissue, response)
-        })
-        .catch(error => {
-          console.log(error);
-        })
-  } else {
-    fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
-        .then(response => {
-          emits('getGene', data.gene, response)
-        })
-        .catch(error => {
-          console.error(error);
-        })
-  }
-
-}
+//
+// }
 
 const handleChange = () => {
   console.log('Selected omics:', data.omics)
@@ -224,7 +164,6 @@ watch(() => data.gene, (newValue, oldValue) => {
     emits('getGene', data.gene, '')
     if (data.tissue === '' || data.tissue === undefined) {
       emits('getTissue', data.tissue, '')
-      console.log('hhh')
       fetchOmicsData({omics: data.omics})
           .then(response => {
             tissues.value = response.tissue_count
