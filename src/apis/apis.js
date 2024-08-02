@@ -8,3 +8,29 @@ export function fetchOmicsData (params){
     })
 }
 
+export function fetchTissueData (params){
+    return request({
+        url: '/omics/tissue',
+        method: 'get',
+        params: params
+    })
+}
+
+export function fetchGeneData (params){
+    return request({
+        url: '/omics/tissue/gene',
+        method: 'get',
+        params: params
+    })
+}
+
+export function fetchGeneDeatail (params){
+    return request({
+        url: '/gse/gene',
+        method: 'get',
+        params: params
+    })
+}
+
+
+

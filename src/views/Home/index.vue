@@ -73,7 +73,7 @@ const emitsGene = (name, data) => {
 
 const options = ref(null)
 watch(omicsData, (newOmicsData) => {
-  console.log('index-watchomics-data', newOmicsData.data)
+  // console.log('index-watchomics-data', newOmicsData.data)
   const data = getTissueData(newOmicsData.data.tissue_count)
   options.value = RingChartOptionCreator(data)
 });
@@ -106,23 +106,23 @@ function getTissueData(rawdata) {
 
 
 watch(tissueData, (newVal) => {
-  console.log('index-watch-tissue', newVal.data)
+  // console.log('index-watch-tissue', newVal.data)
   tissueData.data = newVal.data
-  console.log('tissueData Length', Object.keys(tissueData.data).length)
+  // console.log('tissueData Length', Object.keys(tissueData.data).length)
 });
 
 watch(geneData, (newVal) => {
-  console.log('index-watch-gene', newVal.data)
+  // console.log('index-watch-gene', newVal.data)
   geneData.data = newVal.data
-  console.log('geneData Length', Object.keys(geneData.data).length)
-  console.log('genename', geneData.name)
-  console.log('tissueDataname', tissueData.name)
+  // console.log('geneData Length', Object.keys(geneData.data).length)
+  // console.log('genename', geneData.name)
+  // console.log('tissueDataname', tissueData.name)
   if (Object.keys(geneData.data).length === 0 && geneData.name.length !== 0) {
     // 显示弹窗提示
     alert('this gene no result');
   }
   if (geneData.name.length === 0 && Object.keys(tissueData.data).length === 0) {
-    console.log('how to do')
+    // console.log('how to do')
     // echart_show.value = true;
     // table_show.value = false;
     // genetable_show.value = false;

@@ -10,7 +10,7 @@
 <script setup>
 import {computed, ref, onMounted, watch} from 'vue';
 import {useRoute} from 'vue-router';
-import axios from "axios";
+import {fetchGeneDeatail} from '@/apis/apis'
 import Chart from "@/views/Details/components/Chart.vue";
 import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
 
@@ -21,8 +21,9 @@ const expra = ref(null);
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}});
-    expra.value = response.data.data;
+    // const response = await axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}});
+    const response = await fetchGeneDeatail({gse: gse.value, gene: gene.value});
+    expra.value = response;
   } catch (error) {
     console.error(error);
   }
