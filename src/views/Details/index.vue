@@ -1,46 +1,23 @@
 <template>
   <el-main class="main">
-    <!--    <p>GSE: {{ gse }}</p>-->
-    <!--    <p>Gene: {{ gene }}</p>-->
-
-    <!--    <template>-->
-    <!--      <DetailTable :tissuedata="tissueData.data"/>-->
-    <!--    </template>-->
-
-    <el-table :data="tableData" stripe style="width: 100%">
-
-      <el-table-column prop="gene__name" label="Gene"/>
-      <el-table-column prop="tissue" label="Tissue"/>
-      <el-table-column prop="condition" label="Condition"/>
-      <el-table-column prop="JTK_pvalue" label="JTK_pvalue"/>
-      <el-table-column prop="JTK_BH_Q" label="JTK_BH.Q"/>
-      <el-table-column prop="JTK_period" label="JTK_period"/>
-      <el-table-column prop="JTK_adjphase" label="JTK_adjphase"/>
-      <el-table-column prop="JTK_amplitude" label="JTK_amplitude"/>
-      <el-table-column prop="meta2d_Base" label="meta2d_Base"/>
-      <el-table-column prop="meta2d_AMP" label="meta2d_AMP"/>
-      <el-table-column prop="meta2d_rAMP" label="meta2d_rAMP"/>
-
-    </el-table>
+    <DetailTable :tableData="tableData"/>
     <br>
     <Chart :options="options" style="width: 100%"/>
   </el-main>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, onMounted, watch} from 'vue';
+import {computed, ref, onMounted} from 'vue';
 import {useRoute} from 'vue-router';
 import {fetchGeneDeatail} from '@/apis/apis'
 import Chart from "@/views/Details/components/Chart.vue";
 import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
-import Table from "@/views/Home/components/Table.vue";
+import DetailTable from "@/views/Details/components/DetailTable.vue";
 
 const route = useRoute();
 const gse = ref(route.query.gse);
 const gene = ref(route.query.gene);
 const expra = ref(null);
-
-
 
 const fetchData = async () => {
   try {
@@ -79,6 +56,7 @@ const options = computed(() => {
 const tableData = computed(() => {
   if (expra.value) {
     const data = GetTableData(expra.value);
+    console.log('---', data)
     return data;
   }
   return null; // 或者返回适当的默认值
