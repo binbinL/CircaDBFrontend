@@ -1,29 +1,53 @@
 <template>
   <el-main class="main">
-    <p>GSE: {{ gse }}</p>
-    <p>Gene: {{ gene }}</p>
-    <!--    <div id="chart" style="width: 800px; height: 400px;"></div>-->
-    <Chart :options="options"/>
+    <!--    <p>GSE: {{ gse }}</p>-->
+    <!--    <p>Gene: {{ gene }}</p>-->
+
+    <!--    <template>-->
+    <!--      <DetailTable :tissuedata="tissueData.data"/>-->
+    <!--    </template>-->
+
+    <el-table :data="tableData" stripe style="width: 100%">
+
+      <el-table-column prop="gene__name" label="Gene"/>
+      <el-table-column prop="tissue" label="Tissue"/>
+      <el-table-column prop="condition" label="Condition"/>
+      <el-table-column prop="JTK_pvalue" label="JTK_pvalue"/>
+      <el-table-column prop="JTK_BH_Q" label="JTK_BH.Q"/>
+      <el-table-column prop="JTK_period" label="JTK_period"/>
+      <el-table-column prop="JTK_adjphase" label="JTK_adjphase"/>
+      <el-table-column prop="JTK_amplitude" label="JTK_amplitude"/>
+      <el-table-column prop="meta2d_Base" label="meta2d_Base"/>
+      <el-table-column prop="meta2d_AMP" label="meta2d_AMP"/>
+      <el-table-column prop="meta2d_rAMP" label="meta2d_rAMP"/>
+
+    </el-table>
+    <br>
+    <Chart :options="options" style="width: 100%"/>
   </el-main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {computed, ref, onMounted, watch} from 'vue';
 import {useRoute} from 'vue-router';
 import {fetchGeneDeatail} from '@/apis/apis'
 import Chart from "@/views/Details/components/Chart.vue";
 import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
+import Table from "@/views/Home/components/Table.vue";
 
 const route = useRoute();
 const gse = ref(route.query.gse);
 const gene = ref(route.query.gene);
 const expra = ref(null);
 
+
+
 const fetchData = async () => {
   try {
     // const response = await axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}});
     const response = await fetchGeneDeatail({gse: gse.value, gene: gene.value});
     expra.value = response;
+
   } catch (error) {
     console.error(error);
   }
@@ -46,14 +70,25 @@ onMounted(async () => {
 const options = computed(() => {
   console.log(expra.value);
   if (expra.value) {
-    const {xAxisHour, seriesdata, legenddata} = GetData(expra.value);
+    const {xAxisHour, seriesdata, legenddata} = GetChartData(expra.value);
     return GeneExpraCreator(xAxisHour, seriesdata, legenddata);
   }
   return null; // 或者返回适当的默认值
 });
 
+const tableData = computed(() => {
+  if (expra.value) {
+    const data = GetTableData(expra.value);
+    return data;
+  }
+  return null; // 或者返回适当的默认值
+});
 
-function GetData(data) {
+function GetTableData(data) {
+  return data.DetialData
+}
+
+function GetChartData(data) {
   console.log(data)
   let xAxisHour = [];
   let seriesdata = [];

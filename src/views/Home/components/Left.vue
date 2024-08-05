@@ -1,8 +1,8 @@
 <template>
   <div class="container">
 
-    <div class="vertical-radio-group">
-      <el-select v-model="data.species" placeholder="please select Species" @change="handleSpeciesChange">
+    <div  class="vertical-radio-group">
+      <el-select v-model="data.species" placeholder="Please Select Species" @change="handleSpeciesChange">
         <el-option label="Human" value="Human"/>
         <el-option label="Mus" value="Mus"/>
       </el-select>
@@ -15,7 +15,7 @@
       <!--        <el-radio-button label="Acetylome" value="Acetylome"/>-->
       <!--        <el-radio-button label="Proteome" value="Proteome"/>-->
       <!--      </el-radio-group>-->
-      <el-select v-model="data.omics" placeholder="please select Omics" @change="handleChange">
+      <el-select v-model="data.omics" clearable placeholder="Please Select Omics" @change="handleChange">
         <el-option label="Transcriptome" value="Transcriptome"/>
         <el-option label="Metabolome" value="Metabolome"/>
         <el-option label="Acetylome" value="Acetylome"/>
@@ -24,7 +24,7 @@
     </div>
 
     <div style="margin-top: 20px" class="vertical-radio-group">
-      <el-select v-model="data.tissue" clearable placeholder="please select Tissue" @change="handleChange">
+      <el-select v-model="data.tissue" clearable placeholder="Please Select Tissue" @change="handleChange">
         <el-option
             v-for="(item, key) in tissues"
             :key="key"
@@ -204,18 +204,18 @@ const querySearch = (queryString, cb) => {
   cb(results)
 }
 
-const handleGeneSelect = (item) => {
-  console.log('handleGeneSelect', item)
-  data.gene = item.value
-  console.log(data.omics, data.tissue, data.gene)
-  fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
-      .then(response => {
-        emits('getGene', data.gene, response)
-      })
-      .catch(error => {
-        console.error(error);
-      })
-}
+// const handleGeneSelect = (item) => {
+//   console.log('handleGeneSelect', item)
+//   data.gene = item.value
+//   console.log(data.omics, data.tissue, data.gene)
+//   fetchGeneData({omics: data.omics, tissue: data.tissue || null, gene: data.gene})
+//       .then(response => {
+//         emits('getGene', data.gene, response)
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       })
+// }
 
 </script>
 
@@ -223,6 +223,7 @@ const handleGeneSelect = (item) => {
 .container {
   display: flex;
   flex-direction: column;
+  flex: 2;
 }
 
 .vertical-radio-group {
