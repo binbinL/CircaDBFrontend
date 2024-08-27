@@ -141,7 +141,6 @@ watch(geneData, (newVal) => {
     // const data = getTissueData(omicsData.data.tissue_count)
     // options.value = RingChartOptionCreator(data)
     // console.log('options', options.value)
-
   }
 });
 

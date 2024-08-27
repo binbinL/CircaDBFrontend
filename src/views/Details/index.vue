@@ -78,21 +78,22 @@ function GetChartData(data) {
   let conditions = data.condition;
   let colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4'];
 
-  console.log(xAxisHour)
-  console.log(legenddata)
   dataList.forEach((conditionData, conditionIndex) => {
     let meanData = new Array(xAxisHour.length).fill(0);
+    console.log('conditionData',conditionData)
+    console.log('conditionIndex',conditionIndex)
     conditionData.forEach((replicateData) => {
       replicateData.forEach((value, index) => {
         meanData[index] += value; // 累加同一时间点的数据
       });
     });
-    meanData = meanData.map(value => value / conditionData.length); // 计算均值
 
+    meanData = meanData.map(value => value / conditionData.length); // 计算均值
+    console.log('meanData',meanData)
     seriesdata.push({
       data: meanData,
       type: 'line', // 使用线连接均值数据点
-      smooth: true,
+      smooth: false,
       lineStyle: {
         color: colors[conditionIndex % colors.length] // 使用不同颜色区分不同条件下的数据
       },
