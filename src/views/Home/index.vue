@@ -1,15 +1,16 @@
 <template>
-  <Left @getOmics="emitsOmics" @getTissue="emitsTissue" @getGene="emitsGene"/>
+  <Left @getSpecies="emitsSpecies" @getOmics="emitsOmics" @getTissue="emitsTissue" @getGene="emitsGene"/>
   <el-main class="main">
 
     <template v-if="Object.keys(tissueData.data).length===0 && geneData.name.length === 0">
       <Chart :options="options"/>
     </template>
-    <template v-else-if="Object.keys(tissueData.data).length > 0 && Object.keys(geneData.data).length === 0">
+<!--    Object.keys(geneData.data).length === 0-->
+    <template v-else-if="Object.keys(tissueData.data).length > 0 && geneData.name.length === 0">
       <Table :tissuedata="tissueData.data"/>
     </template>
     <template v-else>
-      <GeneTable :genedata="geneData.data"/>
+      <GeneTable :genedata="geneData.data" :species="geneData.species"/>
     </template>
 
     <!--    <template>-->
@@ -30,15 +31,16 @@
 
 <script setup>
 import Left from "@/views/Home/components/Left.vue";
-import {reactive, watch, computed, ref} from 'vue';
+import {reactive, watch, ref} from 'vue';
 import Chart from "@/views/Home/components/Chart.vue";
 import RingChartOptionCreator from "@/views/Home/charts/RingChartOptions.js";
 import Table from "@/views/Home/components/Table.vue";
 import GeneTable from "@/views/Home/components/GeneTable.vue";
 
-// const options = ref(null)
-// let chartOptions = RingChartOptionCreator();
 
+const speciesData = reactive({
+  data: {}
+})
 const omicsData = reactive({
   data: {}
 })
@@ -47,9 +49,13 @@ const tissueData = reactive({
   data: {}
 })
 const geneData = reactive({
+  species: '',
   name: '',
   data: {}
 })
+const emitsSpecies = (data) => {
+  speciesData.data = data
+}
 const emitsOmics = (data) => {
   omicsData.data = data
 }
@@ -57,7 +63,8 @@ const emitsTissue = (name, data) => {
   tissueData.name = name
   tissueData.data = data
 }
-const emitsGene = (name, data) => {
+const emitsGene = (species, name, data) => {
+  geneData.species = species
   geneData.name = name
   geneData.data = data
 }
@@ -72,6 +79,10 @@ const emitsGene = (name, data) => {
 // });
 
 const options = ref(null)
+watch(speciesData, (newspeciesData) => {
+  console.log('index-watchspeciesData-data', newspeciesData.data)
+});
+
 watch(omicsData, (newOmicsData) => {
   // console.log('index-watchomics-data', newOmicsData.data)
   const data = getTissueData(newOmicsData.data.tissue_count)
@@ -112,12 +123,12 @@ watch(tissueData, (newVal) => {
 });
 
 watch(geneData, (newVal) => {
-  // console.log('index-watch-gene', newVal.data)
+  console.log('index-watch-gene', newVal.data)
   geneData.data = newVal.data
   // console.log('geneData Length', Object.keys(geneData.data).length)
   // console.log('genename', geneData.name)
   // console.log('tissueDataname', tissueData.name)
-  if (Object.keys(geneData.data).length === 0 && geneData.name.length !== 0) {
+  if (geneData.name.length !== 0 && Object.keys(geneData.data).length === 0  ) {
     // 显示弹窗提示
     alert('this gene no result');
   }

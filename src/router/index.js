@@ -43,7 +43,7 @@ const router = createRouter({
                 {
                     path: '/details',
                     component: DetailsView,
-                    props: (route) => ({gse: route.query.gse, gene: route.query.gene})
+                    props: (route) => ({species: route.query.species, gse: route.query.gse, gene: route.query.gene})
                 }
             ]
         },

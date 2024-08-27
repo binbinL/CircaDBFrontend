@@ -15,6 +15,7 @@ import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
 import DetailTable from "@/views/Details/components/DetailTable.vue";
 
 const route = useRoute();
+const species = ref(route.query.species);
 const gse = ref(route.query.gse);
 const gene = ref(route.query.gene);
 const expra = ref(null);
@@ -22,7 +23,7 @@ const expra = ref(null);
 const fetchData = async () => {
   try {
     // const response = await axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}});
-    const response = await fetchGeneDeatail({gse: gse.value, gene: gene.value});
+    const response = await fetchGeneDeatail(species.value,{gse: gse.value, gene: gene.value});
     expra.value = response;
 
   } catch (error) {

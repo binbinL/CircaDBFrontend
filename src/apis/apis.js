@@ -1,32 +1,32 @@
 import {request} from "@/utils/request";
 
-export function fetchOmicsData (params){
+export function fetchOmicsData(species, params) {
     return request({
-        url: '/omics',
+        url: `/${species}/omics`,
+        method: 'get',
+        params: params
+    })
+}
+// `
+export function fetchTissueData(species, params) {
+    return request({
+        url: `/${species}/omics/tissue`,
         method: 'get',
         params: params
     })
 }
 
-export function fetchTissueData (params){
+export function fetchGeneData(species,params) {
     return request({
-        url: '/omics/tissue',
+        url: `/${species}/omics/tissue/gene`,
         method: 'get',
         params: params
     })
 }
 
-export function fetchGeneData (params){
+export function fetchGeneDeatail(species,params) {
     return request({
-        url: '/omics/tissue/gene',
-        method: 'get',
-        params: params
-    })
-}
-
-export function fetchGeneDeatail (params){
-    return request({
-        url: '/gse/gene',
+        url: `/${species}/gse/gene`,
         method: 'get',
         params: params
     })
