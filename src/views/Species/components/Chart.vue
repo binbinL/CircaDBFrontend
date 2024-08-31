@@ -8,6 +8,11 @@ import * as echarts from "echarts";
 import {useRouter} from 'vue-router'; // 导入路由相关内容
 const router = useRouter(); // 获取路由实例
 
+import {useRoute} from 'vue-router'
+
+const route = useRoute()
+const species = ref(route.path.split('/')[1])
+
 const props = defineProps({
   options: {
     type: Object,
@@ -28,8 +33,7 @@ watch(
     (newOptions) => {
       chart.value.setOption(newOptions);
       chart.value.on('click', function (params) {
-        console.log(params.data.name);
-        router.push({path: `/human/${params.data.name}`});
+        router.push({path: `/${species.value}/${params.data.name}`});
       });
     },
     {deep: true}

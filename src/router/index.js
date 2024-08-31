@@ -7,9 +7,9 @@ import DownLoadView from "../views/Download/index.vue";
 import LayOut from "../views/Layout/index.vue";
 import DetailsView from "../views/Details/index.vue"
 
-import HomoView from '../views/Homo/index.vue'
-import MusView from '../views/Mus/index.vue'
-import TranscriptomeView from '../views/Transcriptome/index.vue'
+
+import SpeciesView from '../views/Species/index.vue'
+import OmicsView from '../views/Omics/index.vue'
 import GEOTableView from '../views/Table/GEOTable/index.vue'
 
 const router = createRouter({
@@ -51,27 +51,18 @@ const router = createRouter({
                 },
 
                 {
-                    path: '/human/',
-                    name: 'human',
-                    component: HomoView,
-                    children:[
+                    path: '/:species',
+                    name: 'species',
+                    component: SpeciesView,
+                    children: [
                         {
-                            path: '/human/Transcriptome',
-                            component: TranscriptomeView,
+                            path: '/:species/:omics',
+                            component: OmicsView,
                         }
                     ]
                 },
                 {
-                    path: '/mouse/',
-                    name: 'mouse',
-                    component: MusView,
-                },
-                // {
-                //     path: '/human/Transcriptome',
-                //     component: TranscriptomeView,
-                // }
-                {
-                    path: '/human/Transcriptome/:source',
+                    path: '/:species/:omics/:source',
                     component: GEOTableView,
                 }
             ]

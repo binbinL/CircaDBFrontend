@@ -5,16 +5,22 @@
 <script setup>
 
 import {ref, onMounted} from 'vue';
-import Chart from "@/views/Transcriptome/components/Chart.vue";
-import RingChartOptionCreator from "@/views/Transcriptome/charts/RingChartOptions.js";
+import Chart from "@/views/Omics/components/Chart.vue";
+import RingChartOptionCreator from "@/views/Omics/charts/RingChartOptions.js";
 import {fetchOmicsData} from "@/apis/apis.js";
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
+const species = ref(route.path.split('/')[1])
+const omics = ref(route.path.split('/')[2])
 
 const options = ref(null);
 const tissues = ref(null)
 
 const fetchData = async () => {
-  fetchOmicsData('Homo', {omics: 'Transcriptome'})
+  console.log('species',species.value)
+  console.log('omics',omics.value)
+  fetchOmicsData(species.value, {omics: omics.value})
       .then(response => {
         tissues.value = response.tissue_count
       }).then(() => {

@@ -18,8 +18,9 @@
 <script setup>
 
 import {ref, onMounted} from 'vue';
-import Chart from "@/views/Homo/components/Chart.vue";
-import RingChartOptionCreator from "@/views/Homo/charts/RingChartOptions.js";
+import Chart from "@/views/Species/components/Chart.vue";
+import RingChartOptionCreator from "@/views/Species/charts/RingChartOptions.js";
+
 
 const options = ref(null);
 

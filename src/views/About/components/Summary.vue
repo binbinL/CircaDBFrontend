@@ -53,10 +53,9 @@ const mus_image = "/images/mouse.png"
 const human_image = "/images/human.png"
 const jumpToPage = (species) => {
   if (species === 'homo') {
-    console.log('homo')
-    router.push({name: 'human'}); // 跳转到 Homo 页面
+    router.push({path: `/human`});
   } else if (species === 'mus') {
-    router.push({name: 'mouse'}); // 跳转到 Mus 页面
+    router.push({path: `/mouse`});
   }
 }
 </script>
