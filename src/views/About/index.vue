@@ -1,16 +1,12 @@
 <template>
   <el-main class="main">
-    <About/>
+    <Summary/>
   </el-main>
 </template>
 
-<script>
-import {defineComponent} from "vue";
-import About from "@/views/About/components/About.vue";
+<script setup>
+import Summary from "@/views/About/components/Summary.vue";
 
-export default defineComponent({
-  components: {About}
-})
 </script>
 
 <style scoped>

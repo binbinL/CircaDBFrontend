@@ -14,7 +14,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
         :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
-        background-color="#545c64"
+        background-color="#59938AFF"
         text-color="#fff"
         active-text-color="#ffd04b"
         @select="handleSelect"
@@ -66,9 +66,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
     </el-menu>
   </div>
 
-  <el-header class="header">
+<!--  <el-header class="header">-->
 
-  </el-header>
+<!--  </el-header>-->
 </template>
 
 

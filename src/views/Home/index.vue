@@ -2,10 +2,13 @@
   <Left @getSpecies="emitsSpecies" @getOmics="emitsOmics" @getTissue="emitsTissue" @getGene="emitsGene"/>
   <el-main class="main">
 
-    <template v-if="Object.keys(tissueData.data).length===0 && geneData.name.length === 0">
+    <template v-if="Object.keys(tissueData.data).length===0 && geneData.name.length === 0 ">
       <Chart :options="options"/>
     </template>
-<!--    Object.keys(geneData.data).length === 0-->
+    <!--    <template v-else-if="Object.keys(tissueData.data).length===0 && geneData.name.length === 0 && options !== null">-->
+    <!--      <Chart :options="options"/>-->
+    <!--    </template>-->
+
     <template v-else-if="Object.keys(tissueData.data).length > 0 && geneData.name.length === 0">
       <Table :tissuedata="tissueData.data"/>
     </template>
@@ -38,6 +41,7 @@ import Table from "@/views/Home/components/Table.vue";
 import GeneTable from "@/views/Home/components/GeneTable.vue";
 
 
+
 const speciesData = reactive({
   data: {}
 })
@@ -68,15 +72,7 @@ const emitsGene = (species, name, data) => {
   geneData.name = name
   geneData.data = data
 }
-// const echart_show = computed(() => {
-//   return Object.keys(tissueData.data).length === 0 && geneData.name.length === 0;
-// });
-// const table_show = computed(() => {
-//   return Object.keys(tissueData.data).length > 0 && Object.keys(geneData.data).length === 0;
-// });
-// const genetable_show = computed(() => {
-//   return Object.keys(geneData.data).length > 0;
-// });
+
 
 const options = ref(null)
 watch(speciesData, (newspeciesData) => {
@@ -88,7 +84,6 @@ watch(omicsData, (newOmicsData) => {
   const data = getTissueData(newOmicsData.data.tissue_count)
   options.value = RingChartOptionCreator(data)
 });
-
 
 function getTissueData(rawdata) {
   let tissueDatas = []
@@ -128,7 +123,7 @@ watch(geneData, (newVal) => {
   // console.log('geneData Length', Object.keys(geneData.data).length)
   // console.log('genename', geneData.name)
   // console.log('tissueDataname', tissueData.name)
-  if (geneData.name.length !== 0 && Object.keys(geneData.data).length === 0  ) {
+  if (geneData.name.length !== 0 && Object.keys(geneData.data).length === 0) {
     // 显示弹窗提示
     alert('this gene no result');
   }

@@ -15,6 +15,7 @@ import {defineComponent} from "vue";
 import Top from "@/views/Layout/components/Top.vue";
 import Bottom from "@/views/Layout/components/Bottom.vue";
 
+
 export default defineComponent({
   components: {Top, Bottom}
 })

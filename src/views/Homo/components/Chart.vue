@@ -5,6 +5,8 @@
 <script setup>
 import {ref, onMounted, watch, toRefs, markRaw} from "vue";
 import * as echarts from "echarts";
+import {useRouter} from 'vue-router'; // 导入路由相关内容
+const router = useRouter(); // 获取路由实例
 
 const props = defineProps({
   options: {
@@ -15,35 +17,40 @@ const props = defineProps({
 const {options} = toRefs(props)
 const container = ref(null);
 const chart = ref(null);
+
 onMounted(() => {
   chart.value = markRaw(echarts.init(container.value));
   chart.value.setOption(options);
-
 });
 
 watch(
     options,
     (newOptions) => {
       chart.value.setOption(newOptions);
-      console.log('hhh')
+      chart.value.on('click', function (params) {
+        console.log(params.data.name);
+        router.push({path: `/human/${params.data.name}`});
+      });
     },
     {deep: true}
 );
-
-// watch(() => props.options, (newOptions) => {
-//       const chartData = newOptions.series[0].data;
-//       console.log('chart_chartData', chartData)
-//       chart.value.setOption(newOptions);
-//     },
-//     {deep: true}
-// );
 
 
 </script>
 
 <style scoped>
 .container {
-  width: 100%;
+  display: flex;
+  width: 50%;
   height: 100%;
 }
+
+.container_left {
+  flex: 1;
+}
+
+.container_right {
+  flex: 1;
+}
+
 </style>
