@@ -12,7 +12,6 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            alias: '/home',
             component: LayOut,
             children: [
                 {
