@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" stripe style="width: 100%" @row-click="handleRowClick">
+  <el-table :data="tableData" stripe border style="width: 100%" @row-click="handleRowClick">
     <el-table-column prop="GEOAccession__GSE" label="GSE"/>
     <el-table-column prop="GEOAccession__title" label="Title"/>
     <el-table-column prop="condition" label="Contidion"/>
