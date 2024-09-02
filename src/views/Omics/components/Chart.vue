@@ -31,11 +31,13 @@ onMounted(() => {
 watch(
     options,
     (newOptions) => {
+      console.log('-chart species', species.value)
+      console.log('-chart omics', omics.value)
       chart.value.setOption(newOptions);
       chart.value.on('click', function (params) {
         console.log(params.data.name);
-        console.log('chart species', species.value)
-        console.log('chart omics', omics.value)
+        console.log('--chart species', species.value)
+        console.log('--chart omics', omics.value)
         router.push({path: `/${species.value}/${omics.value}/${params.data.name}`});
       });
     },

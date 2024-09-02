@@ -58,6 +58,9 @@ const router = createRouter({
                         {
                             path: '/:species/:omics',
                             component: OmicsView,
+                            // meta: {
+                            //     keepAlive: false,
+                            // },
                         }
                     ]
                 },

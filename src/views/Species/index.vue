@@ -8,7 +8,7 @@
 
       <!-- 右边内容 -->
       <div class="container_right" ref="container_left">
-        <router-view/>
+        <router-view :key='$route.fullPath'/>
       </div>
     </div>
   </el-main>

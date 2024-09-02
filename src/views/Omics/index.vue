@@ -18,8 +18,8 @@ const options = ref(null);
 const tissues = ref(null)
 
 const fetchData = async () => {
-  console.log('species',species.value)
-  console.log('omics',omics.value)
+  console.log('omics species',species.value)
+  console.log('omics omics',omics.value)
   fetchOmicsData(species.value, {omics: omics.value})
       .then(response => {
         tissues.value = response.tissue_count
@@ -33,6 +33,7 @@ const fetchData = async () => {
 };
 
 onMounted(() => {
+  console.log('GG')
   fetchData();
 });
 
