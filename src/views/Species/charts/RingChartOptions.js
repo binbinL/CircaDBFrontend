@@ -9,7 +9,7 @@ export default function RingChartOptions(data=[]) {
         },
         series: [
             {
-                name: 'Tissue Count',
+                name: 'Omics Count',
                 type: 'pie',
                 radius: ['40%', '70%'],
                 avoidLabelOverlap: false,

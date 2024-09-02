@@ -76,9 +76,11 @@ function getOmicsData() {
   width: 100%;
   height: 100%;
 }
+
 .container_left {
   flex: 1;
 }
+
 .container_right {
   flex: 1;
 }

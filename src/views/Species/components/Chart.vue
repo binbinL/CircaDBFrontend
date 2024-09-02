@@ -1,5 +1,5 @@
 <template>
-  <div class="container" ref="container"></div>
+  <div class="container" ref="container" style="width: 600px;height:400px;"></div>
 </template>
 
 <script setup>
@@ -47,16 +47,8 @@ watch(
 <style scoped>
 .container {
   display: flex;
-  width: 50%;
+  width: 100%;
   height: 100%;
-}
-
-.container_left {
-  flex: 1;
-}
-
-.container_right {
-  flex: 1;
 }
 
 </style>
