@@ -11,6 +11,7 @@ import DetailsView from "../views/Details/index.vue"
 import SpeciesView from '../views/Species/index.vue'
 import OmicsView from '../views/Omics/index.vue'
 import GEOTableView from '../views/Table/GEOTable/index.vue'
+import GeneTableView from '../views/Table/GeneTable/index.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,14 @@ const router = createRouter({
                 {
                     path: '/:species/:omics/:source',
                     component: GEOTableView,
+                },
+                {
+                    path: '/:species/:omics/:source/:gene',
+                    component: GeneTableView,
+                },
+                {
+                    path: '/details/:species/:omics/:geo/:gene',
+                    component: DetailsView,
                 }
             ]
         }

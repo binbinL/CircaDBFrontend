@@ -1,14 +1,34 @@
 <template>
   <el-main class="main">
+    <!--    <div class="container">-->
+    <!--      &lt;!&ndash; 左边内容 &ndash;&gt;-->
+    <!--      <div class="container_left" ref="container_left">-->
+    <!--        <Chart :options="options"/>-->
+    <!--      </div>-->
+
+    <!--      &lt;!&ndash; 右边内容 &ndash;&gt;-->
+    <!--      <div class="container_right" ref="container_left">-->
+    <!--        <router-view :key='$route.fullPath'/>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
     <div class="container">
-      <!-- 左边内容 -->
-      <div class="container_left" ref="container_left">
-        <Chart :options="options"/>
+      <!-- 上面内容 -->
+      <div class="container_top">
+        <h2>HHH</h2>
       </div>
 
-      <!-- 右边内容 -->
-      <div class="container_right" ref="container_left">
-        <router-view :key='$route.fullPath'/>
+      <!-- 下面内容 -->
+      <div class="container_bottom">
+        <!-- 左边内容 -->
+        <div class="container_left" ref="container_left">
+          <Chart :options="options"/>
+        </div>
+
+        <!-- 右边内容 -->
+        <div class="container_right" ref="container_left">
+          <router-view :key='$route.fullPath'/>
+        </div>
       </div>
     </div>
   </el-main>
@@ -39,7 +59,7 @@ function getOmicsData() {
   let OmicDatas = []
   OmicDatas = [
     {
-      value: 1,
+      value: 12,
       name: 'Transcriptome'
     },
     {
@@ -47,7 +67,7 @@ function getOmicsData() {
       name: 'Metabolome'
     },
     {
-      value: 1,
+      value: 3,
       name: 'Acetylome'
     },
     {
@@ -72,16 +92,23 @@ function getOmicsData() {
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
 
-.container_left {
+.container_top {
   flex: 1;
 }
 
+.container_bottom {
+  display: flex;
+  flex: 1;
+}
+
+.container_left,
 .container_right {
   flex: 1;
 }
+
 </style>

@@ -1,5 +1,6 @@
 <template>
   <el-main class="main">
+    <Search/>
     <DetailTable :tableData="tableData"/>
     <br>
     <Chart :options="options" style="width: 100%"/>
@@ -7,23 +8,25 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, onMounted} from 'vue';
-import {useRoute} from 'vue-router';
+import {computed, ref, onMounted, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import {fetchGeneDeatail} from '@/apis/apis'
 import Chart from "@/views/Details/components/Chart.vue";
 import GeneExpraCreator from "@/views/Details/charts/GeneExpra.js";
 import DetailTable from "@/views/Details/components/DetailTable.vue";
+import Search from "@/views/Table/components/Search.vue";
+const router = useRouter(); // 获取路由实例
 
 const route = useRoute();
-const species = ref(route.query.species);
-const gse = ref(route.query.gse);
-const gene = ref(route.query.gene);
+const species = ref(route.path.split('/')[2])
+
+const gse = ref(route.path.split('/')[4])
+const gene = ref(route.path.split('/')[5])
 const expra = ref(null);
 
 const fetchData = async () => {
   try {
-    // const response = await axios.get(`/api/gse/gene`, {params: {gse: gse.value, gene: gene.value}});
-    const response = await fetchGeneDeatail(species.value,{gse: gse.value, gene: gene.value});
+    const response = await fetchGeneDeatail(species.value, {gse: gse.value, gene: gene.value});
     expra.value = response;
 
   } catch (error) {
@@ -34,16 +37,9 @@ const fetchData = async () => {
 onMounted(async () => {
   await fetchData();
 });
-
-// 另一种写法
-// const options = ref(null)
-// watch(expra, (newVal) => {
-//   console.log('---', newVal)
-//   if (newVal) {
-//     const {xAxisHour, seriesdata, legenddata} = GetData(newVal);
-//     options.value = GeneExpraCreator(xAxisHour, seriesdata, legenddata);
-//   }
-// });
+watch(route, (to, from) => {
+  router.go(0)
+})
 
 const options = computed(() => {
   console.log(expra.value);
@@ -80,8 +76,8 @@ function GetChartData(data) {
 
   dataList.forEach((conditionData, conditionIndex) => {
     let meanData = new Array(xAxisHour.length).fill(0);
-    console.log('conditionData',conditionData)
-    console.log('conditionIndex',conditionIndex)
+    console.log('conditionData', conditionData)
+    console.log('conditionIndex', conditionIndex)
     conditionData.forEach((replicateData) => {
       replicateData.forEach((value, index) => {
         meanData[index] += value; // 累加同一时间点的数据
@@ -89,7 +85,7 @@ function GetChartData(data) {
     });
 
     meanData = meanData.map(value => value / conditionData.length); // 计算均值
-    console.log('meanData',meanData)
+    console.log('meanData', meanData)
     seriesdata.push({
       data: meanData,
       type: 'line', // 使用线连接均值数据点

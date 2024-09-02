@@ -13,7 +13,7 @@ const {tableData} = toRefs(props);
 </script>
 
 <template>
-  <el-table :data="tableData" stripe style="width: 100%">
+  <el-table :data="tableData" stripe style="width: 90% ;margin: 0 auto">
 
     <el-table-column prop="gene__name" label="Gene"/>
     <el-table-column prop="tissue" label="Tissue"/>
@@ -23,7 +23,7 @@ const {tableData} = toRefs(props);
     <el-table-column prop="amp" label="amp"/>
     <el-table-column prop="peakTime" label="peakTime"/>
     <el-table-column prop="phase" label="phase"/>
-<!--    <el-table-column prop="offset" label="offset"/>-->
+    <!--    <el-table-column prop="offset" label="offset"/>-->
 
   </el-table>
 </template>
