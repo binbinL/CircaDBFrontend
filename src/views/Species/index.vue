@@ -1,36 +1,37 @@
 <template>
   <el-main class="main">
+    <div class="container">
+      <!-- 左边内容 -->
+      <div class="container_left" ref="container_left">
+        <Chart :options="options"/>
+      </div>
+
+      <!-- 右边内容 -->
+      <div class="container_right" ref="container_left">
+        <router-view :key='$route.fullPath'/>
+      </div>
+
+    </div>
+
     <!--    <div class="container">-->
-    <!--      &lt;!&ndash; 左边内容 &ndash;&gt;-->
-    <!--      <div class="container_left" ref="container_left">-->
-    <!--        <Chart :options="options"/>-->
+    <!--      &lt;!&ndash; 上面内容 &ndash;&gt;-->
+    <!--      <div class="container_top">-->
+    <!--        <h2>HHH</h2>-->
     <!--      </div>-->
 
-    <!--      &lt;!&ndash; 右边内容 &ndash;&gt;-->
-    <!--      <div class="container_right" ref="container_left">-->
-    <!--        <router-view :key='$route.fullPath'/>-->
+    <!--      &lt;!&ndash; 下面内容 &ndash;&gt;-->
+    <!--      <div class="container_bottom">-->
+    <!--        &lt;!&ndash; 左边内容 &ndash;&gt;-->
+    <!--        <div class="container_left" ref="container_left">-->
+    <!--          <Chart :options="options"/>-->
+    <!--        </div>-->
+
+    <!--        &lt;!&ndash; 右边内容 &ndash;&gt;-->
+    <!--        <div class="container_right" ref="container_left">-->
+    <!--          <router-view :key='$route.fullPath'/>-->
+    <!--        </div>-->
     <!--      </div>-->
     <!--    </div>-->
-
-    <div class="container">
-      <!-- 上面内容 -->
-      <div class="container_top">
-        <h2>HHH</h2>
-      </div>
-
-      <!-- 下面内容 -->
-      <div class="container_bottom">
-        <!-- 左边内容 -->
-        <div class="container_left" ref="container_left">
-          <Chart :options="options"/>
-        </div>
-
-        <!-- 右边内容 -->
-        <div class="container_right" ref="container_left">
-          <router-view :key='$route.fullPath'/>
-        </div>
-      </div>
-    </div>
   </el-main>
 
 
@@ -83,7 +84,6 @@ function getOmicsData() {
 <style scoped>
 
 .main {
-  flex: 8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,8 +91,9 @@ function getOmicsData() {
 }
 
 .container {
+  margin-left: 60px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   height: 100%;
 }
@@ -106,7 +107,10 @@ function getOmicsData() {
   flex: 1;
 }
 
-.container_left,
+.container_left {
+  flex: 1;
+}
+
 .container_right {
   flex: 1;
 }
