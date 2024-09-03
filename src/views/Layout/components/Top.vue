@@ -2,8 +2,8 @@
 import {ref} from 'vue'
 import {Document, Download, House, Link, Message} from "@element-plus/icons-vue";
 
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
+const activeIndex = ref(null)
+const handleSelect = (key, keyPath) => {
   console.log(key, keyPath)
 }
 </script>
@@ -24,7 +24,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
           <el-icon>
             <House/>
           </el-icon>
-          Home
+          <span>Home</span>
         </el-menu-item>
       </RouterLink>
 
@@ -33,7 +33,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
           <el-icon>
             <Document/>
           </el-icon>
-          Guide
+          <span>Guide</span>
         </el-menu-item>
       </RouterLink>
 
@@ -42,7 +42,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
           <el-icon>
             <Download/>
           </el-icon>
-          DownLoad
+          <span>Download</span>
         </el-menu-item>
       </RouterLink>
 
@@ -51,7 +51,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
           <el-icon>
             <Message/>
           </el-icon>
-          Contact
+          <span>Contact</span>
         </el-menu-item>
       </RouterLink>
 
@@ -60,15 +60,15 @@ const handleSelect = (key: string, keyPath: string[]) => {
           <el-icon>
             <Link/>
           </el-icon>
-          About
+          <span>About</span>
         </el-menu-item>
       </RouterLink>
     </el-menu>
   </div>
 
-<!--  <el-header class="header">-->
+  <!--  <el-header class="header">-->
 
-<!--  </el-header>-->
+  <!--  </el-header>-->
 </template>
 
 
@@ -81,4 +81,26 @@ const handleSelect = (key: string, keyPath: string[]) => {
   flex: 2;
 //display: flex; //justify-content: center; //align-items: center; background-color: #f4f4f4;
 }
+
+.el-icon {
+  font-size: 30px;
+}
+
+
+.el-menu-item span {
+  border: none;
+  font-size: 16px; /* 设置字体大小 */
+  color: #ffffff; /* 设置字体颜色 */
+  margin-top: 6px; /* 设置顶部间距 */
+  text-decoration: none;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
 </style>
