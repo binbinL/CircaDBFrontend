@@ -52,25 +52,22 @@ const router = createRouter({
                 },
 
                 {
-                    path: '/:species',
+                    path: '/home/:species',
                     name: 'species',
                     component: SpeciesView,
                     children: [
                         {
-                            path: '/:species/:omics',
+                            path: '/home/:species/:omics',
                             component: OmicsView,
-                            // meta: {
-                            //     keepAlive: false,
-                            // },
                         }
                     ]
                 },
                 {
-                    path: '/:species/:omics/:source',
+                    path: '/home/:species/:omics/:source',
                     component: GEOTableView,
                 },
                 {
-                    path: '/:species/:omics/:source/:gene',
+                    path: '/home/:species/:omics/:source/:gene',
                     component: GeneTableView,
                 },
                 {

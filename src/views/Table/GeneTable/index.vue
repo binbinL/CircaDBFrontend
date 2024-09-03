@@ -19,7 +19,7 @@
 
 
 <script setup>
-import {ref, onMounted, reactive, watch} from 'vue';
+import {ref, onMounted, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
 import {fetchGeneData} from "@/apis/apis.js";
 import Search from "@/views/Table/components/Search.vue";
@@ -29,15 +29,14 @@ const route = useRoute()
 
 const tableData = ref(null)
 
-const species = ref(route.path.split('/')[1])
-const omics = ref(route.path.split('/')[2])
-const tissue = ref(route.path.split('/')[3])
-const gene = ref(route.path.split('/')[4])
+const species = ref(route.path.split('/')[2])
+const omics = ref(route.path.split('/')[3])
+const tissue = ref(route.path.split('/')[4])
+const gene = ref(route.path.split('/')[5])
 
 
 onMounted(() => {
-  console.log(species, omics, tissue)
-
+  console.log('Genetable', species, omics, tissue, gene)
   fetchGeneData(species.value, {omics: omics.value, tissue: tissue.value || null, gene: gene.value})
       .then(response => {
         tableData.value = response
@@ -52,8 +51,7 @@ watch(route, (to, from) => {
 })
 
 const handleRowClick = (row) => {
-  console.log('GEO:', row.GEOAccession__GSE, row.gene__name)
-  // router.push({path: `/details?&species=${species.value}&gse=${row.GEOAccession__GSE}&gene=${row.gene__name}`});
+  console.log('GeneTable:', row.GEOAccession__GSE, row.gene__name)
   router.push({path: `/details/${species.value}/${omics.value}/${row.GEOAccession__GSE}/${row.gene__name}`});
 };
 
@@ -61,9 +59,13 @@ const handleRowClick = (row) => {
 
 <style>
 .container {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-//justify-content: center; align-items: center; height: 100vh; /* 让容器铺满整个视口高度 */
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 让容器铺满整个视口高度 */
 }
 
 .TableBox {

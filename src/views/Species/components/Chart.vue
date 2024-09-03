@@ -11,7 +11,7 @@ const router = useRouter(); // 获取路由实例
 import {useRoute} from 'vue-router'
 
 const route = useRoute()
-const species = ref(route.path.split('/')[1])
+const species = ref(route.path.split('/')[2])
 
 const props = defineProps({
   options: {
@@ -33,9 +33,7 @@ watch(
     (newOptions) => {
       chart.value.setOption(newOptions);
       chart.value.on('click', function (params) {
-        console.log('chart species', species.value)
-        console.log('chart species', params.data.name)
-        router.push({path: `/${species.value}/${params.data.name}`});
+        router.push({path: `/home/${species.value}/${params.data.name}`});
       });
     },
     {deep: true}

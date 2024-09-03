@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import Summary from "@/views/About/components/Summary.vue";
+import Summary from "@/views/Home/components/Summary.vue";
 
 </script>
 

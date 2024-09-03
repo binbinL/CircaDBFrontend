@@ -23,17 +23,15 @@ const route = useRoute()
 
 const tableData = ref(null)
 
-const species = ref(route.path.split('/')[1])
-const omics = ref(route.path.split('/')[2])
-const tissue = ref(route.path.split('/')[3])
+const species = ref(route.path.split('/')[2])
+const omics = ref(route.path.split('/')[3])
+const tissue = ref(route.path.split('/')[4])
 
 
 onMounted(() => {
-  console.log(species, omics, tissue)
-
+  console.log('GEOTable', species, omics, tissue)
   fetchTissueData(species.value, {omics: omics.value, tissue: tissue.value})
       .then(response => {
-        console.log(response)
         tableData.value = response
       })
       .catch(error => {
@@ -50,6 +48,8 @@ watch(route, (to, from) => {
 
 <style>
 .container {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +79,7 @@ watch(route, (to, from) => {
 .SearchBox input::placeholder {
   color: #0f1313; /* 设置placeholder的颜色为红色 */
   font-style: italic; /* 设置placeholder的字体为斜体 */
-  font-size: 16px; /* 设置placeholder的字体大小为14像素 */
+  font-size: 18px; /* 设置placeholder的字体大小为14像素 */
 }
 
 </style>

@@ -4,15 +4,15 @@
     <div class="Species">
       <div class="block">
         <h2>Human</h2>
-        <el-image :src="human_image" @click="jumpToPage('homo')">
-          <el-button @click="jumpToPage('homo')">Homo</el-button>
+        <el-image :src="human_image" @click="jumpToPage('human')">
+          <!--          <el-button @click="jumpToPage('human')">human</el-button>-->
         </el-image>
       </div>
 
       <div class="block">
         <h2>Mouse</h2>
-        <el-image :src="mus_image" @click="jumpToPage('mus')">
-          <el-button @click="jumpToPage('mus')">Mus</el-button>
+        <el-image :src="mus_image" @click="jumpToPage('mouse')">
+          <!--          <el-button @click="jumpToPage('mouse')">Mus</el-button>-->
         </el-image>
       </div>
     </div>
@@ -52,11 +52,7 @@ const router = useRouter(); // 获取路由实例
 const mus_image = "/images/mouse.png"
 const human_image = "/images/human.png"
 const jumpToPage = (species) => {
-  if (species === 'homo') {
-    router.push({path: `/human`});
-  } else if (species === 'mus') {
-    router.push({path: `/mouse`});
-  }
+  router.push({path: `/home/${species}`});
 }
 </script>
 

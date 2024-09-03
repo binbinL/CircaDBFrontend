@@ -11,8 +11,8 @@ import {fetchOmicsData} from "@/apis/apis.js";
 import { useRoute } from 'vue-router'
 const route = useRoute()
 
-const species = ref(route.path.split('/')[1])
-const omics = ref(route.path.split('/')[2])
+const species = ref(route.path.split('/')[2])
+const omics = ref(route.path.split('/')[3])
 
 const options = ref(null);
 const tissues = ref(null)
@@ -33,7 +33,6 @@ const fetchData = async () => {
 };
 
 onMounted(() => {
-  console.log('GG')
   fetchData();
 });
 

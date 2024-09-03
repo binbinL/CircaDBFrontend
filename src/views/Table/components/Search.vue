@@ -20,9 +20,9 @@ if (route.path.split('/')[1] === 'details') {
   gse.value = route.path.split('/')[4]
   gene.value = route.path.split('/')[5]
 } else {
-  species.value = route.path.split('/')[1]
-  omics.value = route.path.split('/')[2]
-  tissue.value = route.path.split('/')[3]
+  species.value = route.path.split('/')[2]
+  omics.value = route.path.split('/')[3]
+  tissue.value = route.path.split('/')[4]
 }
 
 
@@ -55,8 +55,8 @@ const querySearch = (queryString, cb) => {
   cb(results)
 }
 const handleChange = () => {
-  if (route.path.split('/')[1] !== 'details') {
-    router.push({path: `/${species.value}/${omics.value}/${tissue.value}/${gene.value}`});
+  if (route.path.split('/')[1] === 'home') {
+    router.push({path: `/home/${species.value}/${omics.value}/${tissue.value}/${gene.value}`});
   } else {
     router.push({path: `/details/${species.value}/${omics.value}/${gse.value}/${gene.value}`});
   }
