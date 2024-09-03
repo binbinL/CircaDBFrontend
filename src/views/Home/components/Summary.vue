@@ -26,30 +26,31 @@
       <div class="DataPortal">
 
         <div class="icon-text">
-          <el-icon size="40">
-            <Link/>
-          </el-icon>
+          <!--          <el-icon size="40">-->
+          <!--            <Link/>-->
+          <!--          </el-icon>-->
+          <svg-icon iconName="icon-project2"></svg-icon>
           <span>32<br>Projects</span>
         </div>
 
         <div class="icon-text">
-          <el-icon size="40">
-            <Document/>
-          </el-icon>
-          <span>108<br>Files</span>
+          <svg-icon iconName="icon-human1"></svg-icon>
+          <span>14<br>Human</span>
+        </div>
+        <div class="icon-text">
+          <svg-icon iconName="icon-Mouse"></svg-icon>
+          <span>108<br>Mouse</span>
+        </div>
+        <div class="icon-text">
+          <svg-icon iconName="icon-cell"></svg-icon>
+          <span>43<br>Source</span>
         </div>
 
         <div class="icon-text">
-          <el-icon size="40">
-            <Folder/>
-          </el-icon>
-          <span>69<br>Source</span>
-        </div>
-
-        <div class="icon-text">
-          <el-icon size="40">
-            <Coin/>
-          </el-icon>
+          <!--          <el-icon size="40">-->
+          <!--            <Coin/>-->
+          <!--          </el-icon>-->
+          <svg-icon iconName="icon-jiyin"></svg-icon>
           <span>49023<br>Genes</span>
         </div>
 
@@ -132,7 +133,7 @@ const jumpToPage = (species) => {
 
 .icon-text span {
   font-size: 25px; /* 设置字体大小 */
-  color: #000; /* 设置字体颜色 */
+  color: #26807c; /* 设置字体颜色 */
   margin-top: 6px; /* 设置顶部间距 */
 }
 
@@ -148,7 +149,7 @@ const jumpToPage = (species) => {
 .Species .block {
   width: 280px; /* 设置每个块的宽度 */
   height: 280px; /* 设置每个块的高度 */
-  border: 2px solid #272c2c; /* 设置边框样式，1像素宽，颜色为灰色 */
+  border: 2px solid #3a6964; /* 设置边框样式，1像素宽，颜色为灰色 */
   margin: 20px; /* 设置外边距 */
   border-radius: 15px;
 }
