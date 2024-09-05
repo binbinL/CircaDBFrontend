@@ -53,7 +53,6 @@ watch(route, (to, from) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 让容器铺满整个视口高度 */
 }
 
 .TableBox {

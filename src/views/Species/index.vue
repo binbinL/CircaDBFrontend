@@ -3,6 +3,7 @@
     <div class="container">
       <!-- 左边内容 -->
       <div class="container_left" ref="container_left">
+        <h2>Omics Statistics</h2>
         <Chart :options="options"/>
       </div>
 
@@ -84,6 +85,7 @@ function getOmicsData() {
 <style scoped>
 
 .main {
+  flex: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,14 +100,6 @@ function getOmicsData() {
   height: 100%;
 }
 
-.container_top {
-  flex: 1;
-}
-
-.container_bottom {
-  display: flex;
-  flex: 1;
-}
 
 .container_left {
   flex: 1;
@@ -114,5 +108,14 @@ function getOmicsData() {
 .container_right {
   flex: 1;
 }
-
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #0f1313; /* 设置字体颜色为蓝色 */
+  font-size: 30px;
+  font-family: sans-serif; /* 设置字体样式为Arial或sans-serif字体 */
+  font-weight: bold; /* 设置字体加粗 */
+  margin: 25px;
+}
 </style>

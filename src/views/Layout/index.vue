@@ -37,7 +37,7 @@ export default defineComponent({
 .main-container {
   flex: 10;
   display: flex;
-  background-color: #e9ecef;
+  background-color: #ffffff;
 }
 
 </style>
