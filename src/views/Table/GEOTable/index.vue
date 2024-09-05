@@ -4,7 +4,7 @@
     <Search/>
 
     <div class="TableBox">
-      <el-table border :data="tableData" stripe style="width: 100%">
+      <el-table border :data="tableData" stripe style="width: 100%" @row-click="handleRowClick">
         <el-table-column prop="GEOAccession__GSE" label="GEOAccession"/>
         <el-table-column prop="GEOAccession__title" label="Title"/>
       </el-table>
@@ -42,8 +42,10 @@ onMounted(() => {
 watch(route, (to, from) => {
   router.go(0)
 })
-
-
+const handleRowClick = (row) => {
+  console.log('GeneTable:', row.GEOAccession__GSE)
+  window.open(`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${row.GEOAccession__GSE}`, '_blank')
+};
 </script>
 
 <style>
