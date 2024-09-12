@@ -61,19 +61,31 @@ function GetTableData(data) {
 }
 
 function GetChartData(data) {
+  console.log(data)
   let xAxisHour = [];
   let seriesdata = [];
   let legenddata = [];
 
-  xAxisHour = data.xAxis;
+  xAxisHour = data.xAxis
   let dataList = data.data;
   let conditions = data.condition;
   let colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4'];
 
+  // let numbers = xAxisHour.map(x => parseInt(x.replace(/[^\d]/g, ''))); // 提取数字部分
+  // // 找到数字部分的最小值和最大值
+  // let minValue = Math.min(...numbers);
+  // let maxValue = Math.max(...numbers);
+  // // 计算要生成的点的数量
+  // let numPoints = (maxValue - minValue) + 1;
+  // // 生成一系列点
+  // let generatedPoints = Array.from({length: numPoints}, (_, index) => {
+  //   let point = minValue + index;
+  //   return Math.max(minValue, Math.min(maxValue, point)); // 确保点在最小值和最大值范围内
+  // });
+  // console.log(generatedPoints);
+
   dataList.forEach((conditionData, conditionIndex) => {
     let meanData = new Array(xAxisHour.length).fill(0);
-    // console.log('conditionData', conditionData)
-    // console.log('conditionIndex', conditionIndex)
     conditionData.forEach((replicateData) => {
       replicateData.forEach((value, index) => {
         meanData[index] += value; // 累加同一时间点的数据
@@ -81,7 +93,7 @@ function GetChartData(data) {
     });
 
     meanData = meanData.map(value => value / conditionData.length); // 计算均值
-    // console.log('meanData', meanData)
+    console.log('meanData', meanData)
     seriesdata.push({
       data: meanData,
       type: 'line', // 使用线连接均值数据点
@@ -103,6 +115,29 @@ function GetChartData(data) {
         name: conditions[conditionIndex] // 设置数据系列名称
       });
     });
+
+    // // Add sine function data
+    // let amp = data.DetialData[conditionIndex].amp;
+    // let phase = data.DetialData[conditionIndex].phase;
+    // let offset = data.DetialData[conditionIndex].offset;
+    // console.log(amp, phase, offset)
+    //
+    // let A24 = 24
+    // let sineData = generatedPoints.map(x => {
+    //   let result = amp * Math.sin(2 * Math.PI / A24 * (x + phase)) + offset;
+    //   return result;
+    // });
+    // console.log(sineData)
+    //
+    // seriesdata.push({
+    //   data: sineData,
+    //   type: 'line',
+    //   smooth: false,
+    //   lineStyle: {
+    //     color: colors[conditionIndex % colors.length]
+    //   },
+    //   name: conditions[conditionIndex]
+    // });
 
     legenddata.push(conditions[conditionIndex]); // 添加均值数据的图例名称
 

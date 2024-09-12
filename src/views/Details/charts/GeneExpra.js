@@ -2,7 +2,7 @@ export default function GeneExpraOption(xAxisHour = [], series = [], legenddata 
     return {
         xAxis: {
             type: 'category',
-            data: xAxisHour//xAxisHour
+            data: xAxisHour
         },
         yAxis: {
             type: 'value'
