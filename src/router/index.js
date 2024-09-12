@@ -12,6 +12,7 @@ import SpeciesView from '../views/Species/index.vue'
 import OmicsView from '../views/Omics/index.vue'
 import GEOTableView from '../views/Table/GEOTable/index.vue'
 import GeneTableView from '../views/Table/GeneTable/index.vue'
+import AnalyseView from '../views/Analyse/index.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +74,10 @@ const router = createRouter({
                 {
                     path: '/details/:species/:omics/:geo/:gene',
                     component: DetailsView,
+                },
+                {
+                    path: '/analyse/:species/:omics/:geo/:gene/:tissue/:condition',
+                    component: AnalyseView,
                 }
             ]
         }

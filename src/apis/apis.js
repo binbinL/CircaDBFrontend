@@ -32,5 +32,13 @@ export function fetchGeneDeatail(species,params) {
     })
 }
 
+export function fetchGeneAnalyse(species,params) {
+    return request({
+        url: `/${species}/gse/gene`,
+        method: 'get',
+        params: params
+    })
+}
+
 
 
