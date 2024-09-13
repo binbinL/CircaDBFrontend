@@ -40,5 +40,13 @@ export function fetchGeneAnalyse(species,params) {
     })
 }
 
+export function fetchAllGEOData(species,params) {
+    return request({
+        url: `/download/`,
+        method: 'get',
+        params: params
+    })
+}
+
 
 
