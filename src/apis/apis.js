@@ -34,7 +34,7 @@ export function fetchGeneDeatail(species,params) {
 
 export function fetchGeneAnalyse(species,params) {
     return request({
-        url: `/${species}/gse/gene`,
+        url: `/analyse/${species}/gse/gene/tissue/condition`,
         method: 'get',
         params: params
     })
