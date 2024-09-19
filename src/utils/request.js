@@ -7,7 +7,7 @@ export function request(config) {
     const instance = axios.create({
         baseURL: "http://localhost:8080",
         // baseURL: import.meta.env.VITE_BASE_URL,
-        timeout: 5000,
+        timeout: 80000,
     });
 
     // 响应

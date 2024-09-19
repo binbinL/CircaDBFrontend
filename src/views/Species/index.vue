@@ -3,7 +3,6 @@
     <div class="container">
       <!-- 左边内容 -->
       <div class="container_left" ref="container_left">
-        <h2>Omics Statistics</h2>
         <Chart :options="options"/>
       </div>
 

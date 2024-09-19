@@ -1,5 +1,5 @@
 <template>
-  <h2>Source Statistics</h2>
+<!--  <h2>Source Statistics</h2>-->
   <Chart :options="options"/>
 </template>
 
