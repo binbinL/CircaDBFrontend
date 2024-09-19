@@ -12,26 +12,6 @@
       </div>
 
     </div>
-
-    <!--    <div class="container">-->
-    <!--      &lt;!&ndash; 上面内容 &ndash;&gt;-->
-    <!--      <div class="container_top">-->
-    <!--        <h2>HHH</h2>-->
-    <!--      </div>-->
-
-    <!--      &lt;!&ndash; 下面内容 &ndash;&gt;-->
-    <!--      <div class="container_bottom">-->
-    <!--        &lt;!&ndash; 左边内容 &ndash;&gt;-->
-    <!--        <div class="container_left" ref="container_left">-->
-    <!--          <Chart :options="options"/>-->
-    <!--        </div>-->
-
-    <!--        &lt;!&ndash; 右边内容 &ndash;&gt;-->
-    <!--        <div class="container_right" ref="container_left">-->
-    <!--          <router-view :key='$route.fullPath'/>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </el-main>
 
 
@@ -41,13 +21,17 @@
 import {ref, onMounted} from 'vue';
 import Chart from "@/views/Species/components/Chart.vue";
 import RingChartOptionCreator from "@/views/Species/charts/RingChartOptions.js";
+import {useRouter} from 'vue-router'; // 导入路由相关内容
+import {useRoute} from 'vue-router'
 
+const route = useRoute()
+const species = ref(route.path.split('/')[2])
 
 const options = ref(null);
 
 
 const fetchData = async () => {
-  const data = await getOmicsData();
+  const data = await getOmicsData(species.value);
   options.value = await RingChartOptionCreator(data)
   console.log(data)
 };
@@ -56,11 +40,17 @@ onMounted(() => {
   fetchData();
 });
 
-function getOmicsData() {
+function getOmicsData(type) {
   let OmicDatas = []
+  let cnt = 0
+  if (type === 'human') {
+    cnt = 11
+  } else if (type === 'mouse') {
+    cnt = 22
+  }
   OmicDatas = [
     {
-      value: 12,
+      value: cnt,
       name: 'Transcriptome'
     },
     {
@@ -68,7 +58,7 @@ function getOmicsData() {
       name: 'Metabolome'
     },
     {
-      value: 3,
+      value: 1,
       name: 'Acetylome'
     },
     {
@@ -107,6 +97,7 @@ function getOmicsData() {
 .container_right {
   flex: 1;
 }
+
 h2 {
   display: flex;
   justify-content: center;
