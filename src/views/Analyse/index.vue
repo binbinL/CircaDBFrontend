@@ -103,21 +103,6 @@ function GetChartData(data) {
     NewxAxisHour = generatedPoints.map(x => 'CT' + x);
   }
   console.log('NewxAxisHour', NewxAxisHour);
-// // 将数组转换为 Proxy 对象
-//   const NewxAxisHourProxy = new Proxy(NewxAxisHour, {
-//     get(target, prop) {
-//       // 在这里可以自定义属性获取的行为
-//       console.log(`Getting property ${prop}`);
-//       return target[prop];
-//     },
-//     set(target, prop, value) {
-//       // 在这里可以自定义属性设置的行为
-//       console.log(`Setting property ${prop} to ${value}`);
-//       target[prop] = value;
-//       return true;
-//     },
-//     // 可以定义其他操作，比如 deleteProperty 等
-//   });
 
   dataList.forEach((conditionData, conditionIndex) => {
     console.log('dataList', conditionData, conditionIndex)
@@ -172,8 +157,6 @@ function GetChartData(data) {
     legenddata.push(conditions[conditionIndex]); // 添加均值数据的图例名称
 
   });
-  console.log(NewxAxisHour)
-  console.log(xAxisHour)
   return {NewxAxisHour, seriesdata, legenddata};
 
 }

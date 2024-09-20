@@ -1,5 +1,4 @@
 export default function GeneExpraOption(NewxAxisHour = [], series = [], legenddata = []) {
-    console.log('GeneExpraOption', NewxAxisHour)
     return {
         xAxis: {
             type: 'category',

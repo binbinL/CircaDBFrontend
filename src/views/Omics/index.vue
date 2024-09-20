@@ -1,5 +1,5 @@
 <template>
-<!--  <h2>Source Statistics</h2>-->
+  <!--  <h2>Source Statistics</h2>-->
   <Chart :options="options"/>
 </template>
 
@@ -19,19 +19,67 @@ const omics = ref(route.path.split('/')[3])
 const options = ref(null);
 const tissues = ref(null)
 
+let humanData = {
+  'tissue_count': {
+    'FibroblastCells': 2,
+    'SkeletalMuscle': 1,
+    'SkeletalMyotubeCells': 1,
+    'U2OS': 3,
+    'SKNAS': 1,
+    'HD-MY-Z': 1,
+    'LCL-HO': 1,
+    'Shep': 1,
+    'VastusLateralisMyotubesCells': 1,
+    'Blood': 1,
+    'L-1236': 1
+  }
+}
+let mouseData = {
+  'tissue_count': {
+    'Muscle': 1,
+    'DMS': 1,
+    'Nac': 1,
+    'Liver': 6,
+    'Forebrain': 1,
+    'BAT': 1,
+    'DLS': 1,
+    'FrontalCortex': 1,
+    'Retina': 1,
+    'eWAT': 1,
+    'Gastrocnemius': 1,
+    'EpidermalCell': 1,
+    'Colon': 2,
+    'SCN': 1,
+    'LN': 1,
+    'BiventricularHeart': 1,
+    'RenalTubule': 1,
+    'Pancreas': 1,
+    'Kidney': 1,
+    'RenalCortex': 1,
+    'Hippocampus': 1
+  }
+}
 const fetchData = async () => {
-  console.log('omics species', species.value)
-  console.log('omics omics', omics.value)
-  fetchOmicsData(species.value, {omics: omics.value})
-      .then(response => {
-        tissues.value = response.tissue_count
-      }).then(() => {
-        const data = getTissueData(tissues.value);
-        options.value = RingChartOptionCreator(data);
-      }
-  ).catch(error => {
-    console.log(error);
-  })
+  // fetchOmicsData(species.value, {omics: omics.value})
+  //     .then(response => {
+  //       tissues.value = response.tissue_count
+  //     }).then(() => {
+  //       const data = getTissueData(tissues.value);
+  //       console.log('data', data)
+  //       options.value = RingChartOptionCreator(data);
+  //     }
+  // ).catch(error => {
+  //   console.log(error);
+  // })
+
+  if (species.value === 'human') {
+    const data = getTissueData(humanData.tissue_count)
+    options.value = RingChartOptionCreator(data);
+  } else if (species.value === 'mouse') {
+    const data = getTissueData(mouseData.tissue_count)
+    options.value = RingChartOptionCreator(data);
+  }
+
 };
 
 onMounted(() => {
@@ -46,7 +94,6 @@ function getTissueData(rawdata) {
       name: key
     };
   });
-
   return tissueDatas
 }
 

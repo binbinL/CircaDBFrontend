@@ -37,6 +37,6 @@ watch(
 <style scoped>
 .container {
   width: 50%;
-  height: 100%;
+  height: 80%;
 }
 </style>

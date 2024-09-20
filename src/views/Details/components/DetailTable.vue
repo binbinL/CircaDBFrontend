@@ -1,6 +1,6 @@
 <script setup>
 import {ref, toRefs} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 // const router = useRouter(); // 获取路由实例
 const route = useRoute()
