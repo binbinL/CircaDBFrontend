@@ -97,15 +97,16 @@ function GetChartData(data) {
     });
     meanData = meanData.map(value => value / conditionData.length); // 计算均值
     console.log('meanData', meanData)
-    seriesdata.push({
-      data: meanData,
-      type: 'line', // 使用线连接均值数据点
-      smooth: false,
-      lineStyle: {
-        color: colors[conditionIndex % colors.length] // 使用不同颜色区分不同条件下的数据
-      },
-      name: conditions[conditionIndex] // 设置数据系列名称
-    });
+    // seriesdata.push({
+    //   data: meanData,
+    //   type: 'line', // 使用线连接均值数据点
+    //   smooth: false,
+    //   showSymbol: false,
+    //   lineStyle: {
+    //     color: colors[conditionIndex % colors.length] // 使用不同颜色区分不同条件下的数据
+    //   },
+    //   name: conditions[conditionIndex] // 设置数据系列名称
+    // });
 
     // change extendedData conditionData
     conditionData.forEach((data) => {
@@ -148,6 +149,7 @@ function GetChartData(data) {
       data: meanData,
       type: 'line',
       smooth: false,
+      showSymbol: false,
       lineStyle: {
         color: colors[conditionIndex % colors.length]
       },

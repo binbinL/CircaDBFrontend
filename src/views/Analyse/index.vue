@@ -145,6 +145,8 @@ function GetChartData(data) {
         data: sineData,
         type: 'line',
         smooth: false,
+        showSymbol: false,
+        clip: true,
         lineStyle: {
           color: colors[conditionIndex % colors.length]
         },
